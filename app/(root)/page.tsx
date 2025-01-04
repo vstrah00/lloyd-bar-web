@@ -1,5 +1,3 @@
-import { Search } from "lucide-react";
-import Image from "next/image";
 import SearchForm from "../../components/SearchForm"
 import BlogCard, { BlogTypeCard } from "../../components/BlogCard";
 import { BLOG_QUERY } from "@/sanity/lib/queries";
@@ -34,7 +32,7 @@ export default async function Home({searchParams}:{
 
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post:BlogTypeCard, index:number) => (
+            posts.map((post:BlogTypeCard) => (
               <BlogCard key={post?._id} post={post}/>
             ))
           ):(

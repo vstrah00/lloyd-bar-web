@@ -14,7 +14,7 @@ const BlogCard = ({post}:{post:BlogTypeCard}) => {
     <li className='startup-card group'>
         <div className='flex-between'>
             <p className='startup_card_date'>
-                {formatDate(post._createdAt)}
+                {formatDate(_createdAt)}
             </p>
             <div className='flex gap-1.5'>
                 <EyeIcon className='size-6' />
