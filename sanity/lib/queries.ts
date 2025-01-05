@@ -1,5 +1,6 @@
 import { defineQuery } from "next-sanity";
 
+
 export const BLOG_QUERY = defineQuery(`
             *[_type=="blog" && !defined($search) || title match $search || category match $search || description match $search] | order(_createdAt desc){
                 _id, title, slug, _createdAt, views,
@@ -20,4 +21,21 @@ export const BLOG_BY_ID_QUERY = defineQuery(`
                 }
             }
     `)
+
+export const PRODUCT_QUERY = defineQuery(`
+            *[_type=="product"]{
+                _id, name, price, description
+            }
+    `)
+
+
+
+export const CATEGORY_QUERY = defineQuery(`
+    *[_type == "category"] {
+        name,
+        "products": *[_type == "product" && references(^._id)] {
+        _id, name, price, description, image
+        }
+    }
+`);
 

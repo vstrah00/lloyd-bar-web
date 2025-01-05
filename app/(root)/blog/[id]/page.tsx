@@ -24,6 +24,31 @@ const page = async ({params}: {params: Promise<{id:string}>}) => {
     
     <section className='section_container !pt-0'>
         <div className='space-y-5 mt-10 max-w-4xl mx-auto'>
+            
+            
+            <div className="section_container">
+                <div className="relative">
+                    {/* Image Section */}
+                    <img 
+                        src={post.image} 
+                        alt="thumbnail" 
+                        className="w-full md:w-[440px] h-auto rounded-xl float-none md:float-left md:mr-6 mb-3"
+                    />
+
+                    {/* Text Section */}
+                    <div>
+                        {parsedContent ? (
+                            <article 
+                                dangerouslySetInnerHTML={{ __html: parsedContent }} 
+                                className="prose max-w-none font-work-sans mb-5"
+                            />
+                        ) : (
+                            <p className="no-result">No details provided</p>
+                        )}
+                    </div>
+                </div>
+            </div>
+
             <div className='flex-between gap-5'>
                 <Link href={`/user/${post.author?._id}`} className='flex gap-2 items-center mb-3'>
                     <Image src={post.author?.image} alt='avatar' height={64} width={64} className='rounded-full drop-shadow-lg'/>
@@ -37,32 +62,7 @@ const page = async ({params}: {params: Promise<{id:string}>}) => {
                 <Link href={`/?query=${post.category?.toLowerCase()}`}>
                     <p className='category-tag'>{post.category}</p>
                 </Link>
-            </div>
-            
-            <div className="section_container">
-                <div className="relative">
-                    {/* Image Section */}
-                    <img 
-                        src={post.image} 
-                        alt="thumbnail" 
-                        className="w-full md:w-[440px] h-auto rounded-xl float-none md:float-left md:mr-6 mb-6"
-                    />
-
-                    {/* Text Section */}
-                    <div>
-                        {parsedContent ? (
-                            <article 
-                                dangerouslySetInnerHTML={{ __html: parsedContent }} 
-                                className="prose max-w-none font-work-sans"
-                            />
-                        ) : (
-                            <p className="no-result">No details provided</p>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-
+            </div>               
             
         </div>
 
