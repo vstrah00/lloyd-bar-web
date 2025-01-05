@@ -118,6 +118,9 @@
         @apply border-[5px] py-4 border-black bg-white text-black relative shadow-100 font-work-sans font-medium hover:shadow-none transition-all duration-500 !important;
     }
 
+    .navbar-item {
+        @apply px-3 py-2 m-0 rounded-lg font-semibold transition-all duration-300 border-2 border-transparent hover:border-black-200
+    }
     /* searchform */
     .search-form {
         @apply max-w-3xl w-full min-h-[80px] bg-white border-[5px] border-black rounded-[80px] text-[24px] mt-8 px-5 flex flex-row items-center gap-5;

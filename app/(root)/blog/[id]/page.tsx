@@ -16,7 +16,7 @@ const page = async ({params}: {params: Promise<{id:string}>}) => {
   const parsedContent = md.render(post?.pitch || '');
 
   return <>
-    <section className='pink_container !min-h-10 !py-4'>
+    <section className='pink_container !min-h-10'>
         <p className='tag'>{formatDate(post._createdAt)}</p>
         <h1 className='heading'>{post.title}</h1>
         <p className='sub-heading !text-black'>{post.description}</p>
@@ -34,7 +34,9 @@ const page = async ({params}: {params: Promise<{id:string}>}) => {
                     </div>
                 </Link>
 
-                <p className='category-tag'>{post.category}</p>
+                <Link href={`/?query=${post.category?.toLowerCase()}`}>
+                    <p className='category-tag'>{post.category}</p>
+                </Link>
             </div>
             
             <div className="section_container">
