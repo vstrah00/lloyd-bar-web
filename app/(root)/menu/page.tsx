@@ -22,11 +22,6 @@ type Product = {
     products: Product[];
   };
   
-
-type MenuServerProps = {
-  products: Category[];
-};
-
 // Define the Server Component to fetch data
 export default async function MenuServer() {
   // Fetch the data in the server component

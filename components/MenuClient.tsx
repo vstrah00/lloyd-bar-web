@@ -9,7 +9,7 @@ import { client } from '@/sanity/lib/client';
 const builder = imageUrlBuilder(client);
 
 // Function to get the URL from the Sanity image object
-function urlFor(source: any) {
+function urlFor(source: { asset: { _ref: string; }; }) {
   return builder.image(source);
 }
 
@@ -60,7 +60,10 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
             {/* Category Header */}
             <h2
               className="category-title text-30-semibold cursor-pointer text-black hover:text-primary transition-colors"
-              onClick={() => toggleCategory(category.name)}
+              onClick={() => {
+                toggleCategory(category.name);
+                toggleDescription('');
+              }}
             >
               {category.name}
             </h2>
@@ -69,7 +72,7 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
             {openCategory === category.name && (
               <ul className="product-list mt-4 space-y-4">
                 {category.products.map((product) => (
-                  <li key={product._id} className="product-card bg-white p-4 rounded-lg shadow-md flex items-center justify-between space-x-4 hover:shadow-xl transition-shadow">
+                  <li key={product._id} className="product-card">
                     <div
                       className="product-card-header flex items-center space-x-4 cursor-pointer"
                       onClick={() => toggleDescription(product._id)}
@@ -84,13 +87,13 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
                       />
                       <div className="product-details flex-1">
                         <h3 className="product-name text-20-medium font-semibold text-black">{product.name}</h3>
-                        <p className="product-price text-16-medium text-gray-600">${product.price}</p>
+                        <p className="product-price text-16-medium text-gray-600">{product.price}€</p>
                       </div>
                     </div>
 
                     {/* Product Description (toggle visibility) */}
-                    {activeProduct === product._id && (
-                      <p className="product-description text-14-normal text-black-200 mt-2">{product.description}</p>
+                    {activeProduct === product._id && product.description!=null &&(
+                      <p className="text-14-normal !text-black-200 mt-2">{product.description}</p>
                     )}
                   </li>
                 ))}

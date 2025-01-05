@@ -47,6 +47,10 @@
         @apply font-normal text-sm text-white-100/80;
     }
 
+    .product-card{
+        @apply bg-black-300 p-4 rounded-lg mb-5 shadow-lg hover:bg-black-100 transform transition-all;
+    }
+
     .pink_container {
         @apply w-full bg-primary min-h-[530px] pattern flex justify-center items-center flex-col py-10 px-6;
     }
@@ -120,6 +124,10 @@
 
     .navbar-item {
         @apply px-3 py-2 m-0 rounded-lg font-semibold transition-all duration-300 border-2 border-transparent hover:border-black-200
+    }
+
+    .navbar-item.active {
+        @apply font-bold
     }
     /* searchform */
     .search-form {
