@@ -22,6 +22,9 @@ type Product = {
     products: Product[];
   };
   
+
+export const revalidate = 20; // Revalidate every 60 seconds
+
 // Define the Server Component to fetch data
 export default async function MenuServer() {
   // Fetch the data in the server component
