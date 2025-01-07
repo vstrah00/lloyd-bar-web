@@ -1,12 +1,15 @@
-## TO DO
-Plan igre
-- [x] napravit navbar kako treba po projektu
-- [x] implementirat cjenik, novi proizvodi se dodaju preko sanitya i automatski su na Menu sectionu
-- [x] disable scroll kad je otvoren hamburger
-- [ ] sanity- dodati redniBroj kategorijama kako bi se sortirali kako hocu, proizvodima drugi jezik?
-- [ ] highlight stranicu na kojoj smo trenutno
-- [ ] napravit footer
-- [ ] dark mode ugradit
-- [ ] EN/CRO
-- [ ] dio sa igrama nagrade
-- [ ] sentry za bug tracking i prijavu problema
+# Game Plan
+
+- [x] **Create the navbar** properly according to the project requirements  
+- [x] **Implement the menu**; new products are added via Sanity and automatically appear in the Menu section  
+- [x] **Disable scrolling** when the hamburger menu is open  
+- [ ] **Sanity**:  
+  - Add a `serialNumber` field to categories for custom sorting  
+  - Add a second language for products if needed
+- [ ] **Highlight the current page** the user is on  
+- [ ] **Create the footer**  
+- [ ] **Integrate dark mode**  
+- [ ] **Add EN/CRO** (language toggle)  
+- [ ] **Games and rewards** section  
+- [ ] **Sentry integration** for bug tracking and issue reporting
+- [ ] **FIX CURRENT BAD STYLING**
