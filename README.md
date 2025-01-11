@@ -7,7 +7,8 @@
   - Add a `serialNumber` field to categories for custom sorting  
   - Add a second language for products if needed
 - [ ] **Highlight the current page** the user is on  
-- [ ] **Create the footer**  
+- [ ] **Create the footer**
+- [ ] **Implement "Make your own cocktail"**
 - [ ] **Integrate dark mode**  
 - [ ] **Add EN/CRO** (language toggle)  
 - [ ] **Games and rewards** section  
