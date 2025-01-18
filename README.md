@@ -1,5 +1,5 @@
 # Game Plan
-
+Current focus on functionality, later the focus will turn to the beauty factor
 - [x] **Create the navbar** properly according to the project requirements  
 - [x] **Implement the menu**; new products are added via Sanity and automatically appear in the Menu section  
 - [x] **Disable scrolling** when the hamburger menu is open  
@@ -7,7 +7,7 @@
   - Add a `serialNumber` field to categories for custom sorting  
   - Add a second language for products if needed
 - [ ] **Highlight the current page** the user is on  
-- [ ] **Create the footer**
+- [x] **Create the footer**
 - [ ] **Implement "Make your own cocktail"**
 - [ ] **Integrate dark mode**  
 - [ ] **Add EN/CRO** (language toggle)  
