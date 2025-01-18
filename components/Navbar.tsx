@@ -1,10 +1,15 @@
+// components/Navbar.tsx
 'use client'
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const Navbar = () => {
+const Navbar = ({
+  children,
+}:{
+  children: React.ReactNode
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -89,6 +94,8 @@ const Navbar = () => {
           <Link href="/info">
             <span className="navbar-item">More Info</span>
           </Link>
+
+          {children}
         </div>
       </nav>
 
@@ -126,6 +133,7 @@ const Navbar = () => {
         <Link href="/info" onClick={toggleMenu}>
           <span className="block py-4 text-2xl">More Info</span>
         </Link>
+        {children}
 
         {/* Logo at Bottom Right (Mobile) */}
         <div className="absolute bottom-5 right-5 sm:hidden">
