@@ -38,7 +38,7 @@ const LoginSignout = async () => {
         >
           <button
             type="submit"
-            className="navbar-item bg-red-300 px-4 py-2 text-black focus:ring-2 focus:ring-red-300 md:text-base"
+            className="navbar-item bg-primary-100 px-4 py-2 text-black focus:ring-2 focus:ring-red-300 md:text-base"
           >
             Login
           </button>

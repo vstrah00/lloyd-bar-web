@@ -16,13 +16,13 @@ const config: Config = {
             colors: {
                 primary: {
                     "100": '#FFDFA6', // Soft sunset glow (pale orange)
-                    DEFAULT: '#F59E0B', // Sunset orange
+                    DEFAULT: '#F59E0B', // Sunset orange#
                     dark: '#D97706', // Deep amber
                 },
                 secondary: {
                     light: '#FFB3B3', // Soft coral pink
                     DEFAULT: '#FF4D4D', // Vibrant crimson red
-                    dark: '#C64146', // Deep ruby red
+                    dark: '#C54047', // Deep ruby red
                 },                
                 accent: {
                     light: '#FFEDCC', // Warm sandy beige
