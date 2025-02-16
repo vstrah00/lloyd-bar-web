@@ -9,11 +9,11 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const pathname = usePathname(); // Fix: Use usePathname instead of useRouter
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 90);
+      setIsScrolled(window.scrollY > 60);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -28,90 +28,83 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Menu", href: "/menu" },
+    { name: "Drinks", href: "/menu" },
     { name: "Events", href: "/events" },
     { name: "Games", href: "/games" },
     { name: "Gallery", href: "/gallery" },
-    { name: "More Info", href: "/info" },
+    { name: "Info", href: "/info" },
   ];
 
   return (
     <header
-      className={`bg-white shadow-md fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-        isScrolled ? "py-1 px-5" : "py-2 px-5"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 p-0 ${
+        isScrolled ? "bg-black/40 backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      <nav className="flex justify-between items-center">
-        <div className="flex items-center gap-5">
+      <nav
+        className={`flex justify-between items-center transition-all duration-500
+          ${isScrolled ? "px-6 py-3 md:px-10 md:py-3" : "px-6 py-5 md:px-12 md:py-8"}
+        `}
+      >
+
+      {/* Logo */}
+        <div className="flex items-center">
           <Link href="/">
             <Image
               src="/logo.png"
               alt="Logo"
-              width={isScrolled ? 80 : 140}
-              height={50}
+              width={isScrolled ? 100 : 160} // Adjust size on scroll
+              height={60}
               className="transition-all duration-500"
             />
           </Link>
         </div>
 
-        <div className="sm:hidden">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-            className="text-black focus:outline-none"
-          >
-            {isMenuOpen ? <span className="text-xl">&#x2715;</span> : <span className="text-xl">&#9776;</span>}
-          </button>
-        </div>
-
-        <div className="hidden sm:flex items-center gap-5 text-black">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-1 text-30-extrabold">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href}>
-              <span
-                className={`navbar-item px-3 py-2 rounded-lg transition ${
-                  pathname === item.href ? "bg-secondary-dark text-white" : ""
-                }`}
-              >
-                {item.name}
-              </span>
+            <Link key={item.href} href={item.href} className="nav-link">
+              {item.name}
             </Link>
           ))}
           {children}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+          className={`md:hidden text-30-bold z-50 ${
+            isMenuOpen ? "!text-white-100" : "!text-black"
+          }`}
+        >
+          {isMenuOpen ? <span>&#x2715;</span> : <span>&#9776;</span>}
+        </button>
       </nav>
 
+      {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 bg-white z-50 flex flex-col items-center justify-center transition-all duration-500 ${
+        className={`fixed inset-0 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 ${
           isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
         }`}
+        style={{
+          top: 0, // Always stick to the top of the screen
+          height: "100vh", // Full height to cover the screen
+        }}
       >
-        <button
-          onClick={() => setIsMenuOpen(false)}
-          aria-label="Close menu"
-          className="absolute top-5 right-5 text-2xl"
-        >
-          &#x2715;
-        </button>
-
+    
         {navItems.map((item) => (
-          <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)}>
-            <span
-              className={`block py-4 text-2xl ${
-                pathname === item.href ? "text-black font-bold" : "hover:text-gray-500"
-              }`}
-            >
-              {item.name}
-            </span>
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={() => setIsMenuOpen(false)}
+            className="nav-link text-30-semibold"
+          >
+            {item.name}
           </Link>
         ))}
 
         {children}
-
-        <div className="absolute bottom-5 right-5 sm:hidden">
-          <Link href="/">
-            <Image src="/logo.png" alt="Logo" width={100} height={35} />
-          </Link>
-        </div>
       </div>
     </header>
   );

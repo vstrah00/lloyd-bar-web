@@ -22,8 +22,8 @@ const page = async ({params}: {params: Promise<{id:string}>}) => {
         <p className='sub-heading !text-black'>{post.description}</p>
     </section>
     
-    <section className='section_container !pt-0'>
-        <div className='space-y-5 mt-10 max-w-4xl mx-auto'>
+    <section className='section_container'>
+        <div className=''>
             
             
             <div className="section_container">
