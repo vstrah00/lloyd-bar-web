@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
-import Navbar from "../../components/Navbar";
 import Footer from "@/components/Footer";
-import LoginSignout from "@/components/LoginSigonut";
 import LandingSection from "@/components/LandingSection"
 
 export default function Layout({children}: Readonly<{children: ReactNode}>){

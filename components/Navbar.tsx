@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+//import { usePathname } from "next/navigation";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const pathname = usePathname();
+  //const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {

@@ -1,5 +1,4 @@
 import { formatDate } from '@/lib/utils'
-import { EyeIcon } from 'lucide-react'
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -8,7 +7,7 @@ import { Author, Blog } from '@/sanity/types'
 export type BlogTypeCard = Omit<Blog, "author"> & {author?:Author}
 
 const BlogCard = ({post}:{post:BlogTypeCard}) => {
-    const {_createdAt, views, author, description, _id, image, category, title} = post;
+    const {_createdAt, author, description, _id, image, category, title} = post;
 
   return (
     <li className='startup-card group'>
