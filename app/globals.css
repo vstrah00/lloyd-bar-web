@@ -113,7 +113,11 @@
 
     /* navbar */
     .nav-link {
-        @apply text-white text-lg px-4 py-2 transition-all duration-300;
+        @apply text-white text-lg px-4 xl:px-5 lg:px-2 md:px-1 py-2 transition-all duration-300;
+    }
+
+    .active-link {
+        @apply text-white font-bold underline;
     }
     
     /* Hover effect */
@@ -295,3 +299,17 @@
 .w-md-editor-toolbar {
     padding: 10px !important;
 }
+
+@keyframes zoomEffect {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+  
+  .animate-zoom {
+    animation: zoomEffect 15s ease-in-out infinite alternate;
+  }
+  

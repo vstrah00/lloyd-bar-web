@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-//import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  //const pathname = usePathname();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +42,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       }`}
     >
       <nav
-        className={`flex justify-between items-center transition-all duration-500
+        className={`flex justify-between transition-all duration-500 2xl:w-[80%] xl:w-[80%] lg:w-[80%] items-center mx-auto
           ${isScrolled ? "px-6 py-3 md:px-10 md:py-3" : "px-6 py-5 md:px-12 md:py-8"}
         `}
       >
@@ -63,8 +63,12 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1 text-30-extrabold">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="nav-link">
-              {item.name}
+            <Link 
+                key={item.href} 
+                href={item.href} 
+                className={`nav-link ${pathname === item.href ? "active-link" : ""}`}
+              >              
+                {item.name}
             </Link>
           ))}
           {children}
@@ -98,7 +102,8 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             key={item.href}
             href={item.href}
             onClick={() => setIsMenuOpen(false)}
-            className="nav-link text-30-semibold"
+            className={`nav-link text-30-semibold 
+              ${pathname === item.href ? "active-link" : "text-gray-400"}`}
           >
             {item.name}
           </Link>
