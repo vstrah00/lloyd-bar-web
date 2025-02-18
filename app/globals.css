@@ -17,15 +17,15 @@
     }
 
     .text-30-extrabold {
-        @apply text-[30px] font-extrabold text-white;
+        @apply text-xl font-extrabold text-white;
     }
 
     .text-30-bold {
-        @apply text-[30px] font-bold text-black;
+        @apply text-xl font-bold text-black;
     }
 
     .text-30-semibold {
-        @apply font-semibold text-[30px] text-black;
+        @apply font-semibold text-xl text-black;
     }
 
     .text-26-semibold {
@@ -53,15 +53,16 @@
     }
 
     .pink_container {
-        @apply w-full bg-primary min-h-[530px] pattern flex justify-center items-center flex-col py-10 px-6;
+        @apply w-full bg-transparent min-h-screen flex justify-center items-center flex-col;
     }
+    
 
     .tag {
         @apply bg-secondary px-6 py-3 font-work-sans font-bold rounded-sm uppercase relative tag-tri;
     }
 
     .heading {
-        @apply uppercase bg-gradient-to-l from-gray-800 to-black px-6 py-3 font-work-sans font-extrabold text-white sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
+        @apply uppercase bg-gradient-to-l from-gray-800 to-black px-6 py-3 font-work-sans font-extrabold text-white md:text-[54px] md:leading-[64px] sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
     }
 
     .sub-heading {
@@ -69,7 +70,7 @@
     }
 
     .section_container {
-        @apply px-6 py-10 max-w-7xl mx-auto;
+        @apply px-6 py-10 max-w-7xl mx-auto ;
     }
 
     .card_grid {
@@ -111,6 +112,20 @@
     }
 
     /* navbar */
+    .nav-link {
+        @apply text-white text-lg px-4 xl:px-5 lg:px-2 md:px-1 py-2 transition-all duration-300;
+    }
+
+    .active-link {
+        @apply text-white font-bold underline;
+    }
+    
+    /* Hover effect */
+    .nav-link:hover {
+        @apply bg-white/20 rounded-lg;
+    }
+    
+
     .avatar {
         @apply p-0 focus-visible:ring-0 bg-none rounded-full drop-shadow-md !important;
     }
@@ -284,3 +299,17 @@
 .w-md-editor-toolbar {
     padding: 10px !important;
 }
+
+@keyframes zoomEffect {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+  
+  .animate-zoom {
+    animation: zoomEffect 15s ease-in-out infinite alternate;
+  }
+  
