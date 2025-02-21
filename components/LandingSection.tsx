@@ -5,7 +5,7 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 
 const desktopBackgrounds = ["/bg1.jpg", "/bg2.jpg", "/bg3.jpg", "/bg4.jpg", "/bg5.jpg"];
-const mobileBackgrounds = ["/bg1-mobile.jpg", "/bg2-mobile.jpg", "/bg3-mobile.jpg", "/bg4-mobile.jpg", "/bg5-mobile.jpg"];
+const mobileBackgrounds = ["/bg1-mobile.jpg", "/bg2-mobile.jpg", "/bg3-mobile.jpg", "/bg4-mobile.jpg"];
 
 const LandingSection = ({
   pinkContainer,
@@ -14,73 +14,73 @@ const LandingSection = ({
   pinkContainer: ReactNode;
   loginSignout: ReactNode;
 }) => {
-  const [backgroundImages, setBackgroundImages] = useState<string[]>(desktopBackgrounds);
-  const [currentImage, setCurrentImage] = useState(backgroundImages[0]);
-  const [nextImage, setNextImage] = useState(backgroundImages[1]);
+  const [backgroundImages, setBackgroundImages] = useState<string[] | null>(null);
+  const [currentImage, setCurrentImage] = useState<string | null>(null);
+  const [nextImage, setNextImage] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [imageKey, setImageKey] = useState(0);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [initialViewportHeight, setInitialViewportHeight] = useState<number | null>(null);
 
   useEffect(() => {
-    const updateImages = () => {
-      setBackgroundImages(window.innerWidth < 768 ? mobileBackgrounds : desktopBackgrounds);
-    };
+    setIsHydrated(true);
 
-    updateImages();
-    window.addEventListener("resize", updateImages);
-    return () => window.removeEventListener("resize", updateImages);
+    // Capture viewport height on first load and store it in a CSS variable
+    const vh = window.innerHeight;
+    document.documentElement.style.setProperty("--fixed-vh", `${vh}px`);
+    setInitialViewportHeight(vh);
+
+    const images = window.innerWidth < 768 ? mobileBackgrounds : desktopBackgrounds;
+    setBackgroundImages(images);
+    setCurrentImage(images[0]);
+    setNextImage(images[1]);
   }, []);
 
   useEffect(() => {
-    setCurrentImage(backgroundImages[0]);
-    setNextImage(backgroundImages[1]);
-  }, [backgroundImages]);
+    if (!isHydrated || !backgroundImages) return;
 
-  useEffect(() => {
     const switchImage = () => {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentImage(nextImage);
         setImageKey((prev) => prev + 1);
         setIsTransitioning(false);
-        const nextIndex = (backgroundImages.indexOf(nextImage) + 1) % backgroundImages.length;
+        const nextIndex = (backgroundImages.indexOf(nextImage as string) + 1) % backgroundImages.length;
         setNextImage(backgroundImages[nextIndex]);
       }, 1000);
     };
 
-    const interval = setInterval(switchImage, 8000);
+    const interval = setInterval(switchImage, 3750);
     return () => clearInterval(interval);
-  }, [nextImage, backgroundImages]);
+  }, [nextImage, backgroundImages, isHydrated]);
 
-  useEffect(() => {
-    const adjustHeight = () => {
-      const landingSection = document.querySelector('.landing-section') as HTMLElement; // Cast to HTMLElement
-      if (landingSection) {
-        landingSection.style.height = `${window.innerHeight}px`;
-      }
-    };
+  const handleScrollDown = () => {
+    if (initialViewportHeight === null) return;
 
-    window.addEventListener('resize', adjustHeight);
-    window.addEventListener('load', adjustHeight);
-    adjustHeight();
+    const currentScroll = window.scrollY; // Current scroll position
+    const remainingScroll = initialViewportHeight - currentScroll; // Remaining distance to scroll
 
-    return () => {
-      window.removeEventListener('resize', adjustHeight);
-      window.removeEventListener('load', adjustHeight);
-    };
-  }, []);
+    window.scrollBy({
+      top: remainingScroll,
+      behavior: "smooth",
+    });
+  };
+
+  if (!isHydrated || !backgroundImages || !currentImage || !nextImage) {
+    return <div className="w-full h-screen bg-black"></div>;
+  }
 
   return (
     <>
-      {/* Hero Section with Background */}
-      <div className="relative w-full h-[100dvh] flex items-center justify-center overflow-hidden landing-section">
-        {/* Background Image Container (With Border) */}
-        <div className="absolute inset-0 w-full h-[100dvh] border-8 border-[#AF7B5C] bg-clip-padding z-0 overflow-hidden">
+      <div className="relative w-full h-[var(--fixed-vh)] flex items-center justify-center overflow-hidden landing-section">
+        <div className="absolute inset-0 w-full h-[var(--fixed-vh)] border-8 border-[#AF7B5C] bg-clip-padding z-0 overflow-hidden">
           {/* Current Image */}
           <Image
             key={`current-${imageKey}`}
             src={currentImage}
             alt="Background Image"
             fill
+            priority
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               isTransitioning ? "opacity-0" : "opacity-100"
             } animate-zoom`}
@@ -98,13 +98,33 @@ const LandingSection = ({
           />
         </div>
 
-        {/* Navbar */}
         <div className="absolute top-0 left-0 w-full z-20">
           <Navbar>{loginSignout}</Navbar>
         </div>
 
-        {/* Pink Container */}
         <div className="relative z-10 mx-5">{pinkContainer}</div>
+
+        {/* Down Arrow Button */}
+        <button
+          onClick={handleScrollDown}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 p-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-75 transition-opacity"
+          aria-label="Scroll down"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8 text-gray-800"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
+        </button>
       </div>
     </>
   );
