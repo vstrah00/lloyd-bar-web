@@ -313,3 +313,54 @@
     animation: zoomEffect 15s ease-in-out infinite alternate;
   }
   
+
+
+
+/* Add this to your global CSS or a CSS module */
+@keyframes waveAnimation1 {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-10%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes waveAnimation2 {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-15%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes waveAnimation3 {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-25%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-wave-1 {
+    animation: waveAnimation1 8s linear infinite;
+  }
+  
+  .animate-wave-2 {
+    animation: waveAnimation2 10s linear infinite;
+  }
+  
+  .animate-wave-3 {
+    animation: waveAnimation3 12s linear infinite;
+  }
