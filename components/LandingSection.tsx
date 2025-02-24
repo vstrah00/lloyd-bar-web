@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import Wave from "./Wave"; // Import the Wave component
 
 const desktopBackgrounds = ["/bg1w.jpg", "/bg2.jpg", "/bg3.jpg", "/bg4.jpg", "/bg5.jpg"];
-const mobileBackgrounds = ["/bg1-mobile.webp", "/bg2-mobile.jpg", "/bg3-mobile.jpg", "/bg4-mobile.jpg"];
+const mobileBackgrounds = ["/bg1-mobile-xs.webp", "/bg2-mobile.webp", "/bg3-mobile.webp", "/bg4-mobile.webp"];
 
 const LandingSection = ({
   pinkContainer,
@@ -55,6 +55,16 @@ const LandingSection = ({
     return () => clearInterval(interval);
   }, [nextImage, backgroundImages, isHydrated]);
 
+  useEffect(() => {
+    if (isHydrated && currentImage) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.href = currentImage;
+      link.as = 'image';
+      document.head.appendChild(link);
+    }
+  }, [isHydrated, currentImage]);
+
   const handleScrollDown = () => {
     if (initialViewportHeight === null) return;
 
@@ -96,10 +106,11 @@ const LandingSection = ({
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               isTransitioning ? "opacity-100" : "opacity-0"
             } ${isTransitioning ? "animate-zoom" : ""}`}
+            loading="lazy"
           />
 
           {/* Wave Component */}
-        <Wave />
+          <Wave />
         </div>
 
         <div className="absolute top-0 left-0 w-full z-20">
@@ -129,8 +140,6 @@ const LandingSection = ({
             />
           </svg>
         </button>
-
-        
       </div>
     </>
   );
