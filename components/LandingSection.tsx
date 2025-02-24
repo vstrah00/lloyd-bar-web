@@ -3,9 +3,10 @@
 import { ReactNode, useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "./Navbar";
+import Wave from "./Wave"; // Import the Wave component
 
-const desktopBackgrounds = ["/bg1.jpg", "/bg2.jpg", "/bg3.jpg", "/bg4.jpg", "/bg5.jpg"];
-const mobileBackgrounds = ["/bg1-mobile.jpg", "/bg2-mobile.jpg", "/bg3-mobile.jpg", "/bg4-mobile.jpg"];
+const desktopBackgrounds = ["/bg1w.jpg", "/bg2.jpg", "/bg3.jpg", "/bg4.jpg", "/bg5.jpg"];
+const mobileBackgrounds = ["/bg1-mobile.webp", "/bg2-mobile.jpg", "/bg3-mobile.jpg", "/bg4-mobile.jpg"];
 
 const LandingSection = ({
   pinkContainer,
@@ -73,7 +74,7 @@ const LandingSection = ({
   return (
     <>
       <div className="relative w-full h-[var(--fixed-vh)] flex items-center justify-center overflow-hidden landing-section">
-        <div className="absolute inset-0 w-full h-[var(--fixed-vh)] border-8 border-[#AF7B5C] bg-clip-padding z-0 overflow-hidden">
+        <div className="absolute inset-0 w-full h-[var(--fixed-vh)] border-8 border-[#FFFFF] bg-clip-padding z-0 overflow-hidden">
           {/* Current Image */}
           <Image
             key={`current-${imageKey}`}
@@ -96,6 +97,9 @@ const LandingSection = ({
               isTransitioning ? "opacity-100" : "opacity-0"
             } ${isTransitioning ? "animate-zoom" : ""}`}
           />
+
+          {/* Wave Component */}
+        <Wave />
         </div>
 
         <div className="absolute top-0 left-0 w-full z-20">
@@ -125,6 +129,8 @@ const LandingSection = ({
             />
           </svg>
         </button>
+
+        
       </div>
     </>
   );
