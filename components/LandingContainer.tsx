@@ -9,7 +9,7 @@ export default function LandingContainer() {
     case "menu":
       return (
         <section className="landing_container">
-          <h1 className="heading">Check what drinks and icecream's we offer!</h1>
+          <h1 className="heading">Check what drinks and icecream&apos;s we offer!</h1>
           <p className="sub-heading">
             Discover a wide range of <br />
             crafted with passion and precision.
