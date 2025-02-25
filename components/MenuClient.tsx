@@ -9,7 +9,7 @@ import { client } from '@/sanity/lib/client';
 const builder = imageUrlBuilder(client);
 
 // Function to get the URL from the Sanity image object
-function urlFor(source: { asset: { _ref: string; }; }) {
+function urlFor(source: { asset: { _ref: string } }) {
   return builder.image(source);
 }
 
@@ -32,7 +32,7 @@ type Category = {
 };
 
 type MenuClientProps = {
-  products: Category[] | undefined;  // Allow products to be undefined initially
+  products: Category[] | undefined; // Allow products to be undefined initially
 };
 
 const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
@@ -50,50 +50,59 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
   };
 
   return (
-    <section className="section_container py-8 px-4 md:px-8">
+    <section className="section_container py-12 px-4 md:px-8 bg-neutral-100">
       {/* Check if products are not empty before rendering */}
       {products.length === 0 ? (
-        <p className="text-center text-20-medium text-gray-700">No products available</p>
+        <p className="text-center text-20-medium text-neutral-500">No products available</p>
       ) : (
         products.map((category) => (
-          <div key={category.name} className="category my-6">
+          <div key={category.name} className="category mb-8 bg-white rounded-lg shadow-md overflow-hidden">
             {/* Category Header */}
-            <h2
-              className="category-title text-30-semibold cursor-pointer text-black hover:text-primary transition-colors"
+            <div
+              className="category-header p-6 mb-2 cursor-pointer hover:bg-neutral-200 transition-colors"
               onClick={() => {
                 toggleCategory(category.name);
-                toggleDescription('');
+                setActiveProduct(null); // Reset active product when category is toggled
               }}
             >
-              {category.name}
-            </h2>
+              <h2 className="text-2xl font-bold text-primary-dark flex items-center justify-between">
+                {category.name}
+                <span className="text-neutral-500 text-lg transition-transform transform rotate-0">
+                  {openCategory === category.name ? '▲' : '▼'}
+                </span>
+              </h2>
+            </div>
 
             {/* Category Products (toggle visibility on category click) */}
             {openCategory === category.name && (
-              <ul className="product-list mt-4 space-y-4">
+              <ul className="product-list p-6 pt-0 space-y-6">
                 {category.products.map((product) => (
                   <li key={product._id} className="product-card">
                     <div
-                      className="product-card-header flex items-center space-x-4 cursor-pointer"
+                      className="product-card-header flex items-start space-x-6 cursor-pointer hover:bg-neutral-50 transition-colors p-4 rounded-lg"
                       onClick={() => toggleDescription(product._id)}
                     >
-                      {/* Product Image, Name, and Price */}
-                      <Image
-                        src={urlFor(product.image).width(200).url()}  // Pass the whole image object
-                        alt={product.name}
-                        width={100}
-                        height={100}
-                        className="product-image w-24 h-24 object-cover rounded-lg"
-                      />
+                      {/* Product Image */}
+                      <div className="product-image w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+                        <Image
+                          src={urlFor(product.image).width(200).url()} // Pass the whole image object
+                          alt={product.name}
+                          width={100}
+                          height={100}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      {/* Product Name and Price */}
                       <div className="product-details flex-1">
-                        <h3 className="product-name text-20-medium font-semibold text-black">{product.name}</h3>
-                        <p className="product-price text-16-medium text-gray-600">{product.price}€</p>
+                        <h3 className="text-xl font-semibold text-neutral-800">{product.name}</h3>
+                        <p className="text-lg font-medium text-secondary-dark mt-1">{product.price}€</p>
                       </div>
                     </div>
 
                     {/* Product Description (toggle visibility) */}
-                    {activeProduct === product._id && product.description!=null &&(
-                      <p className="text-14-normal !text-black-200 mt-2">{product.description}</p>
+                    {activeProduct === product._id && product.description && (
+                      <p className="text-base text-neutral-600 mt-4 pl-30">{product.description}</p>
                     )}
                   </li>
                 ))}

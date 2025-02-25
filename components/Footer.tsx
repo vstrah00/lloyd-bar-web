@@ -1,7 +1,6 @@
 // components/Footer.js
 import React from 'react';
 import Link from 'next/link';
-import { SiInstagram } from 'react-icons/si';
 
 const Footer = () => {
   return (
@@ -20,12 +19,13 @@ const Footer = () => {
         </div>
         <div className="footer-bottom">
           <div className="footer-social">
-            <Link href="https://instagram.com" className="footer-social-icon" aria-label="Instagram">
-              <div className="flex items-center space-x-2">
-                <SiInstagram size={24} />
-                <span className="footer-instagram-handle">@beach_bar_lloyd</span>
-              </div>
-            </Link>
+          <Link href="https://instagram.com/beach_bar_lloyd" className="footer-social-icon" aria-label="Instagram">
+            <div className="flex items-center space-x-2">
+              <img src="/insta-icon.png" alt="Instagram" className="w-6 h-6" />
+              <span className="footer-instagram-handle text-sm leading-none">@beach_bar_lloyd</span>
+            </div>
+          </Link>
+
           </div>
           <div className="footer-social"></div>
           <div className="footer-copyright">
