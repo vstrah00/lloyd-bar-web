@@ -1,7 +1,6 @@
 // components/Footer.js
 import React from 'react';
 import Link from 'next/link';
-import { SiInstagram } from 'react-icons/si';
 
 const Footer = () => {
   return (
