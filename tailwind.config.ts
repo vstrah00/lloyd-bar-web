@@ -15,29 +15,29 @@ const config: Config = {
             },
             colors: {
                 primary: {
-                    "100": '#FFDFA6', // Soft sunset glow (pale orange)
-                    DEFAULT: '#F59E0B', // Sunset orange#
-                    dark: '#D97706', // Deep amber
+                    "100": '#E5E7EB', // Light gray (neutral)
+                    DEFAULT: '#0077BE', // Ocean blue (primary)
+                    dark: '#005F8C', // Darker ocean blue
                 },
                 secondary: {
                     light: '#FFB3B3', // Soft coral pink
-                    DEFAULT: '#FF4D4D', // Vibrant crimson red
-                    dark: '#C54047', // Deep ruby red
-                },                
+                    DEFAULT: '#C54047', // Deep ruby red (secondary)
+                    dark: '#A32B32', // Darker ruby red
+                },
                 accent: {
-                    light: '#FFEDCC', // Warm sandy beige
-                    DEFAULT: '#F4C078', // Sandy peach
-                    dark: '#D6A054', // Deep warm sand
+                    light: '#F7F7F7', // Off-white
+                    DEFAULT: '#E5E7EB', // Light gray
+                    dark: '#6B7280', // Medium gray
                 },
                 neutral: {
-                    light: '#E5E7EB', // Soft mist gray
-                    DEFAULT: '#6B7280', // Balanced medium gray
+                    light: '#F7F7F7', // Off-white
+                    DEFAULT: '#E5E7EB', // Light gray
                     dark: '#1F2937', // Charcoal gray
-                    black: '#111827', // Jet black
+                    black: '#000000', // Jet black
                 },
                 highlight: {
                     light: '#FDE047', // Soft lemon yellow
-                    DEFAULT: '#FACC15', // Golden yellow (sunlit accents)
+                    DEFAULT: '#FACC15', // Golden yellow
                     dark: '#B45309', // Earthy ochre
                 },
                 danger: {
@@ -74,7 +74,7 @@ const config: Config = {
                     '4': 'hsl(var(--chart-4))',
                     '5': 'hsl(var(--chart-5))'
                 },
-				black: {
+                black: {
                     "100": "#333333",
                     "200": "#141413",
                     "300": "#7D8087",

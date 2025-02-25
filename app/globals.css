@@ -48,14 +48,16 @@
         @apply font-normal text-sm text-white-100/80;
     }
 
-    .product-card{
-        @apply bg-black-300 p-4 rounded-lg mb-5 shadow-lg hover:bg-black-100 transform transition-all;
-    }
-
+    .product-card {
+        @apply bg-white p-4 rounded-lg mb-5 shadow-sm hover:shadow-md transform transition-all hover:-translate-y-1 border border-neutral-200;
+      }
     .pink_container {
         @apply w-full bg-transparent h-full flex justify-center items-center flex-col pt-10 md:pt-6 lg:pt-4;
     }
     
+    .landing_container {
+        @apply w-full bg-transparent h-full flex justify-center items-center flex-col pt-10 md:pt-6 lg:pt-4;
+    }
 
     .tag {
         @apply bg-secondary px-6 py-3 font-work-sans font-bold rounded-sm uppercase relative tag-tri;
@@ -354,13 +356,13 @@
   }
   
   .animate-wave-1 {
-    animation: waveAnimation1 8s linear infinite;
+    animation: waveAnimation1 6s linear infinite;
   }
   
   .animate-wave-2 {
-    animation: waveAnimation2 10s linear infinite;
+    animation: waveAnimation2 8s linear infinite;
   }
   
   .animate-wave-3 {
-    animation: waveAnimation3 12s linear infinite;
+    animation: waveAnimation3 10s linear infinite;
   }

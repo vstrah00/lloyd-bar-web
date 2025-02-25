@@ -9,10 +9,10 @@ const desktopBackgrounds = ["/bg1w.jpg", "/bg2.jpg", "/bg3.jpg", "/bg4.jpg", "/b
 const mobileBackgrounds = ["/bg1-mobile-xs.webp", "/bg2-mobile.webp", "/bg3-mobile.webp", "/bg4-mobile.webp"];
 
 const LandingSection = ({
-  pinkContainer,
+  landingContainer,
   loginSignout,
 }: {
-  pinkContainer: ReactNode;
+  landingContainer: ReactNode;
   loginSignout: ReactNode;
 }) => {
   const [backgroundImages, setBackgroundImages] = useState<string[] | null>(null);
@@ -96,7 +96,7 @@ const LandingSection = ({
               isTransitioning ? "opacity-0" : "opacity-100"
             } animate-zoom`}
           />
-
+  
           {/* Next Image */}
           <Image
             key={`next-${imageKey}`}
@@ -108,17 +108,17 @@ const LandingSection = ({
             } ${isTransitioning ? "animate-zoom" : ""}`}
             loading="lazy"
           />
-
+  
           {/* Wave Component */}
           <Wave />
         </div>
-
+  
         <div className="absolute top-0 left-0 w-full z-20">
           <Navbar>{loginSignout}</Navbar>
         </div>
-
-        <div className="relative z-10 mx-5">{pinkContainer}</div>
-
+  
+        <div className="relative z-10 mx-5">{landingContainer}</div> {/* Updated prop usage */}
+  
         {/* Down Arrow Button */}
         <button
           onClick={handleScrollDown}
