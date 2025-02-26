@@ -1,0 +1,31 @@
+{
+    "Home": {
+      "welcome": "Dobrodošli u Beach Bar",
+      "subheading": "Uživajte u najfinijim pićima i vibrama uz plažu."
+    },
+    "Menu": {
+      "heading": "Pogledajte koja pića i sladolede nudimo!",
+      "subheading": "Otkrijte širok izbor napravljen sa strašću i preciznošću."
+    },
+    "About": {
+      "heading": "O Beach Baru",
+      "subheading": "Saznajte više o našoj priči, našim vrijednostima i onome što nas čini jedinstvenima."
+    },
+    "Navbar": {
+        "home": "Početna",
+        "priceList": "Cjenik",
+        "events": "Događanja",
+        "games": "Igre",
+        "gallery": "Galerija",
+        "about": "O nama",
+        "toggleMenu": "Prebacivanje izbornika"
+    },
+    "Footer": {
+        "aboutUs": "O nama",
+        "services": "Usluge",
+        "contact": "Kontakt",
+        "privacyPolicy": "Politika privatnosti",
+        "instagramHandle": "@beach_bar_lloyd",
+        "copyright": "© {year} Beach Bar Lloyd. Sva prava pridržana."
+    }
+  }

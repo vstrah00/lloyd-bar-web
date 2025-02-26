@@ -1,7 +1,7 @@
-import SearchForm from "../../components/SearchForm";
-import BlogCard, { BlogTypeCard } from "../../components/BlogCard";
 import { BLOG_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
+import SearchForm from "@/components/SearchForm";
+import BlogCard, { BlogTypeCard } from "@/components/BlogCard";
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ query: string }> }) {
   const query = (await searchParams).query;
