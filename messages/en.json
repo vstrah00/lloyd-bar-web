@@ -1,0 +1,31 @@
+{
+    "Home": {
+      "welcome": "Welcome to Beach Bar",
+      "subheading": "Enjoy the finest drinks and vibes by the beach."
+    },
+    "Menu": {
+      "heading": "Check what drinks and icecream's we offer!",
+      "subheading": "Discover a wide range of crafted with passion and precision."
+    },
+    "About": {
+      "heading": "About Beach Bar",
+      "subheading": "Learn about our story, our values, and what makes us unique."
+    },
+    "Navbar": {
+        "home": "Home",
+        "priceList": "Price list",
+        "events": "Events",
+        "games": "Games",
+        "gallery": "Gallery",
+        "about": "About",
+        "toggleMenu": "Toggle menu"
+    },
+    "Footer": {
+        "aboutUs": "About Us",
+        "services": "Services",
+        "contact": "Contact",
+        "privacyPolicy": "Privacy Policy",
+        "instagramHandle": "@beach_bar_lloyd",
+        "copyright": "© {year} Beach Bar Lloyd. All rights reserved."
+    }
+  }

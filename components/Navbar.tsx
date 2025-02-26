@@ -4,12 +4,14 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const pathname = usePathname();
+  const t = useTranslations("Navbar"); // Fetch translations for the Navbar namespace
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,14 +28,25 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
     };
   }, [isMenuOpen]);
 
+  // Translate navigation items
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Drinks", href: "/menu" },
-    { name: "Events", href: "/events" },
-    { name: "Games", href: "/games" },
-    { name: "Gallery", href: "/gallery" },
-    { name: "Info", href: "/info" },
+    { name: t("home"), href: "/" },
+    { name: t("priceList"), href: "/menu" },
+    { name: t("events"), href: "/events" },
+    { name: t("games"), href: "/games" },
+    { name: t("gallery"), href: "/gallery" },
+    { name: t("about"), href: "/about" },
   ];
+
+  // Function to strip locale part of the pathname (e.g. "/en/menu" => "/menu")
+  const getLocalizedPathname = (pathname: string) => {
+    const segments = pathname.split('/');
+    // If the first segment is a locale (like "en" or "hr"), remove it
+    if (segments[1] === "en" || segments[1] === "hr") {
+      return '/' + segments.slice(2).join('/');
+    }
+    return pathname; // If no locale, return the pathname as is
+  };
 
   return (
     <header
@@ -46,8 +59,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           ${isScrolled ? "px-6 py-3 md:px-10 md:py-3" : "px-6 py-5 md:px-12 md:py-8"}
         `}
       >
-
-      {/* Logo */}
+        {/* Logo */}
         <div className="flex items-center">
           <Link href="/">
             <Image
@@ -63,12 +75,16 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1 text-30-extrabold">
           {navItems.map((item) => (
-            <Link 
-                key={item.href} 
-                href={item.href} 
-                className={`nav-link ${pathname === item.href ? "active-link" : ""}`}
-              >              
-                {item.name}
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`nav-link ${
+                (item.href === "/" ? getLocalizedPathname(pathname) === item.href : getLocalizedPathname(pathname).startsWith(item.href))
+                  ? "active-link"
+                  : ""
+              }`}
+            >
+              {item.name}
             </Link>
           ))}
           {children}
@@ -77,10 +93,8 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-          className={`md:hidden text-30-bold z-50 ${
-            isMenuOpen ? "!text-white-100" : "!text-black"
-          }`}
+          aria-label={t("toggleMenu")} // Translate aria-label
+          className={`md:hidden text-30-bold z-50 ${isMenuOpen ? "!text-white-100" : "!text-black"}`}
         >
           {isMenuOpen ? <span>&#x2715;</span> : <span>&#9776;</span>}
         </button>
@@ -96,14 +110,16 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           height: "100vh", // Full height to cover the screen
         }}
       >
-    
         {navItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
             onClick={() => setIsMenuOpen(false)}
-            className={`nav-link text-30-semibold 
-              ${pathname === item.href ? "active-link" : "text-gray-400"}`}
+            className={`nav-link text-30-semibold ${
+              (item.href === "/" ? getLocalizedPathname(pathname) === item.href : getLocalizedPathname(pathname).startsWith(item.href))
+                ? "active-link"
+                : "text-gray-400"
+            }`}
           >
             {item.name}
           </Link>

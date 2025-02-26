@@ -59,7 +59,7 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
           <div key={category.name} className="category mb-8 bg-white rounded-lg shadow-md overflow-hidden">
             {/* Category Header */}
             <div
-              className="category-header p-6 mb-2 cursor-pointer hover:bg-neutral-200 transition-colors"
+              className="category-header p-6 mb-2 cursor-pointer md:hover:bg-neutral-200 transition-colors"
               onClick={() => {
                 toggleCategory(category.name);
                 setActiveProduct(null); // Reset active product when category is toggled

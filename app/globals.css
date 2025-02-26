@@ -116,6 +116,10 @@
     /* navbar */
     .nav-link {
         @apply text-white text-lg px-4 xl:px-5 lg:px-2 md:px-1 py-2 transition-all duration-300;
+        display: flex; /* Use Flexbox */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        text-align: center; /* Ensure text is centered within its container */
     }
 
     .active-link {
@@ -246,7 +250,7 @@
     }
     
     .footer-link {
-        @apply text-white text-sm font-semibold hover:text-yellow-500 transition-colors duration-300;
+        @apply text-white text-sm font-semibold hover:text-primary transition-colors duration-300;
     }
     
     .footer-logo {
