@@ -902,7 +902,23 @@
       "title": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "object",
+          "attributes": {
+            "en": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "hr": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": true
       },
@@ -954,14 +970,46 @@
       "description": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "object",
+          "attributes": {
+            "en": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "hr": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": true
       },
       "category": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "object",
+          "attributes": {
+            "en": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "hr": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": true
       },
@@ -975,7 +1023,23 @@
       "pitch": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "object",
+          "attributes": {
+            "en": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "hr": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
         },
         "optional": true
       }
