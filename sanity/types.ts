@@ -169,7 +169,10 @@ export type Blog = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
+  title?: {
+    en?: string;
+    hr?: string;
+  };
   slug?: Slug;
   author?: {
     _ref: string;
@@ -178,10 +181,19 @@ export type Blog = {
     [internalGroqTypeReferenceTo]?: "author";
   };
   views?: number;
-  description?: string;
-  category?: string;
+  description?: {
+    en?: string;
+    hr?: string;
+  };
+  category?: {
+    en?: string;
+    hr?: string;
+  };
   image?: string;
-  pitch?: string;
+  pitch?: {
+    en?: string;
+    hr?: string;
+  };
 };
 
 export type Slug = {
