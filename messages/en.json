@@ -1,31 +1,31 @@
 {
-    "Home": {
-      "welcome": "Welcome to Beach Bar",
-      "subheading": "Enjoy the finest drinks and vibes by the beach."
-    },
-    "Menu": {
-      "heading": "Check what drinks and icecream's we offer!",
-      "subheading": "Discover a wide range of crafted with passion and precision."
-    },
-    "About": {
-      "heading": "About Beach Bar",
-      "subheading": "Learn about our story, our values, and what makes us unique."
-    },
-    "Navbar": {
-        "home": "Home",
-        "priceList": "Price list",
-        "events": "Events",
-        "games": "Games",
-        "gallery": "Gallery",
-        "about": "About",
-        "toggleMenu": "Toggle menu"
-    },
-    "Footer": {
-        "aboutUs": "About Us",
-        "services": "Services",
-        "contact": "Contact",
-        "privacyPolicy": "Privacy Policy",
-        "instagramHandle": "@beach_bar_lloyd",
-        "copyright": "© {year} Beach Bar Lloyd. All rights reserved."
-    }
+  "Home": {
+    "welcome": "Welcome to Beach Bar Lloyd",
+    "subheading": "Relax, sip, and soak in the good vibes by the beach."
+  },
+  "Menu": {
+    "heading": "Check Out What We Offer!",
+    "subheading": "From fresh coffee to cold beers and creamy ice cream – we’ve got your refreshment covered!"
+  },
+  "About": {
+    "heading": "A Slice of Paradise in Okrug Donji",
+    "subheading": "Great coffee, ice-cold beers, and sweet treats by the sea – Beach Bar Lloyd is all about simple pleasures and good times."
+  },
+  "Navbar": {
+      "home": "Home",
+      "priceList": "Price List",
+      "events": "Events",
+      "games": "Games",
+      "gallery": "Gallery",
+      "about": "About",
+      "toggleMenu": "Toggle Menu"
+  },
+  "Footer": {
+      "aboutUs": "About Us",
+      "services": "Services",
+      "contact": "Contact",
+      "privacyPolicy": "Privacy Policy",
+      "instagramHandle": "Follow us on Instagram: @beach_bar_lloyd",
+      "copyright": "© {year} Beach Bar Lloyd. All rights reserved."
   }
+}
