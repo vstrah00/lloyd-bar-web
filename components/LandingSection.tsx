@@ -5,7 +5,7 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import Wave from "./Wave"; // Import the Wave component
 
-const desktopBackgrounds = ["/bg1w.jpg", "/bg2.jpg", "/bg3.jpg", "/bg4.jpg", "/bg5.jpg"];
+const desktopBackgrounds = ["/bg1w.webp", "/bg2w.webp", "/bg3w.webp", "/bg4w.webp", "/bg5w.webp"];
 const mobileBackgrounds = ["/bg1-mobile-xs.webp", "/bg2-mobile.webp", "/bg3-mobile.webp", "/bg4-mobile.webp"];
 
 const LandingSection = ({

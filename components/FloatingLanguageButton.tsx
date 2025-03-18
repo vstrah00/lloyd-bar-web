@@ -1,18 +1,22 @@
 "use client";
 
-import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 const FloatingLanguageToggle = ({ languages }: { languages: string[] }) => {
   const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLanguageChange = (lang: string) => {
     const pathSegments = pathname.split("/").slice(2); // Skip the first two parts (locale and base)
     const newPathname = `/${lang}/${pathSegments.join("/")}`;
 
-    // Force a full page reload to ensure the locale is persisted
-    window.location.href = newPathname;
+    // Save the selected language to localStorage
+    localStorage.setItem("preferredLanguage", lang);
+
+    // Use Next.js router to navigate without full reload
+    router.replace(newPathname);
   };
 
   return (
@@ -21,7 +25,7 @@ const FloatingLanguageToggle = ({ languages }: { languages: string[] }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="px-4 py-2 rounded-full bg-primary border-white-100 border-2 text-white text-sm font-semibold transition-all duration-300"
       >
-        {pathname.split('/')[1] === 'en' ? 'EN' : 'HR'}
+        {pathname.split("/")[1] === "en" ? "EN" : "HR"}
       </button>
 
       {isOpen && (
@@ -31,10 +35,12 @@ const FloatingLanguageToggle = ({ languages }: { languages: string[] }) => {
               key={lang}
               onClick={() => handleLanguageChange(lang)}
               className={`block px-4 py-2 text-sm w-full text-gray-700 ${
-                lang === pathname.split('/')[1] ? 'bg-primary text-white' : 'hover:bg-gray-200'
+                lang === pathname.split("/")[1]
+                  ? "bg-primary text-white"
+                  : "hover:bg-gray-200"
               }`}
             >
-              {lang === "en" ? "EN" : lang === "hr" ? "HR" : lang.toUpperCase()}
+              {lang.toUpperCase()}
             </button>
           ))}
         </div>

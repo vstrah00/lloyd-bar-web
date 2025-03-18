@@ -74,9 +74,15 @@ export type Product = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name?: {
+    en?: string;
+    hr?: string;
+  };
   price?: number;
-  description?: string;
+  description?: {
+    en?: string;
+    hr?: string;
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -102,7 +108,10 @@ export type Category = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
+  name?: {
+    en?: string;
+    hr?: string;
+  };
   slug?: Slug;
 };
 

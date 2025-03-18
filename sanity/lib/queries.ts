@@ -43,12 +43,18 @@ export const PRODUCT_QUERY = defineQuery(`
 
 
 
-export const CATEGORY_QUERY = defineQuery(`
-    *[_type == "category"] {
-        name,
+    export const CATEGORY_QUERY = defineQuery(`
+      *[_type == "category"] {
+        _id,
+        name, // Fetch the entire name object
         "products": *[_type == "product" && references(^._id)] {
-        _id, name, price, description, image
+          _id,
+          name, // Fetch the entire name object
+          price,
+          description, // Fetch the entire description object
+          image
         }
-    }
-`);
+      }
+    `);
+    
 

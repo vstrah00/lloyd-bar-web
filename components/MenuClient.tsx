@@ -14,11 +14,16 @@ function urlFor(source: { asset: { _ref: string } }) {
 }
 
 // Define the types for product and category
+type LocalizedString = {
+  en: string;
+  hr: string;
+};
+
 type Product = {
   _id: string;
-  name: string;
+  name: LocalizedString;
   price: number;
-  description: string;
+  description: LocalizedString;
   image: {
     asset: {
       _ref: string; // This is the reference ID to the image asset
@@ -27,15 +32,19 @@ type Product = {
 };
 
 type Category = {
-  name: string;
+  _id: string;
+  name: LocalizedString;
   products: Product[];
 };
 
+type Locale = 'en' | 'hr';
+
 type MenuClientProps = {
   products: Category[] | undefined; // Allow products to be undefined initially
+  locale: Locale; // Current locale
 };
 
-const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
+const MenuClient: React.FC<MenuClientProps> = ({ products = [], locale }) => {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [activeProduct, setActiveProduct] = useState<string | null>(null);
 
@@ -56,25 +65,25 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
         <p className="text-center text-20-medium text-neutral-500">No products available</p>
       ) : (
         products.map((category) => (
-          <div key={category.name} className="category mb-8 bg-white rounded-lg shadow-md overflow-hidden">
+          <div key={category._id} className="category mb-8 bg-white rounded-lg shadow-md overflow-hidden">
             {/* Category Header */}
             <div
               className="category-header p-6 mb-2 cursor-pointer md:hover:bg-neutral-200 transition-colors"
               onClick={() => {
-                toggleCategory(category.name);
+                toggleCategory(category.name.en);
                 setActiveProduct(null); // Reset active product when category is toggled
               }}
             >
               <h2 className="text-2xl font-bold text-primary-dark flex items-center justify-between">
-                {category.name}
+                {category.name[locale]}
                 <span className="text-neutral-500 text-lg transition-transform transform rotate-0">
-                  {openCategory === category.name ? '▲' : '▼'}
+                  {openCategory === category.name.en ? '▲' : '▼'}
                 </span>
               </h2>
             </div>
 
             {/* Category Products (toggle visibility on category click) */}
-            {openCategory === category.name && (
+            {openCategory === category.name.en && (
               <ul className="product-list p-6 pt-0 space-y-6">
                 {category.products.map((product) => (
                   <li key={product._id} className="product-card">
@@ -86,7 +95,7 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
                       <div className="product-image w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                         <Image
                           src={urlFor(product.image).width(200).url()} // Pass the whole image object
-                          alt={product.name}
+                          alt={product.name[locale]}
                           width={100}
                           height={100}
                           className="w-full h-full object-cover"
@@ -95,14 +104,14 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [] }) => {
 
                       {/* Product Name and Price */}
                       <div className="product-details flex-1">
-                        <h3 className="text-xl font-semibold text-neutral-800">{product.name}</h3>
+                        <h3 className="text-xl font-semibold text-neutral-800">{product.name[locale]}</h3>
                         <p className="text-lg font-medium text-secondary-dark mt-1">{product.price}€</p>
                       </div>
                     </div>
 
                     {/* Product Description (toggle visibility) */}
-                    {activeProduct === product._id && product.description && (
-                      <p className="text-base text-neutral-600 mt-4 pl-30">{product.description}</p>
+                    {activeProduct === product._id && (
+                      <p className="text-base text-neutral-600 mt-4 pl-30">{product.description[locale]}</p>
                     )}
                   </li>
                 ))}
