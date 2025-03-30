@@ -1,9 +1,10 @@
+// app/[locale]/menu/page.tsx
 import React from 'react';
 import { client } from '@/sanity/lib/client';
 import { CATEGORY_QUERY } from '@/sanity/lib/queries';
 import MenuClient from '@/components/MenuClient';
 
-// Define the types for product and category
+// Define the types for product and category (Keep these)
 type Product = {
   _id: string;
   name: {
@@ -17,7 +18,7 @@ type Product = {
   };
   image: {
     asset: {
-      _ref: string; // This is the reference ID to the image asset
+      _ref: string;
     };
   };
 };
@@ -31,21 +32,26 @@ type Category = {
   products: Product[];
 };
 
-type Locale = 'en' | 'hr'; // Define Locale type explicitly
+type Locale = 'en' | 'hr';
 
 export const revalidate = 20;
 
-// Define the Server Component to fetch data
-export default async function MenuServer({ params }: { params: { locale: string } }) {
-  // Await the params object
+// *** 1. DEFINE PageProps TYPE with params as Promise ***
+type PageProps = {
+  params: Promise<{ locale: string; }>;
+};
+
+// *** 2. RENAME component to MenuPage (conventional) and USE PageProps ***
+export default async function MenuPage({ params }: PageProps) {
+  // *** 3. USE await params (matches the Promise type) ***
   const { locale: stringLocale } = await params;
 
-  // Validate and cast locale to 'Locale' type
+  // Validate and cast locale (Keep this)
   const locale = (stringLocale === 'en' || stringLocale === 'hr' ? stringLocale : 'en') as Locale;
 
-  // Fetch the data in the server component
-  const products: Category[] = await client.fetch(CATEGORY_QUERY);
+  // Fetch the data (Keep this - consider renaming variable if needed)
+  const categories: Category[] = await client.fetch(CATEGORY_QUERY); // Assuming CATEGORY_QUERY returns Category[]
 
-  // Pass the fetched data and locale to the Client Component as props
-  return <MenuClient products={products} locale={locale} />;
+  // Pass the fetched data and locale to the Client Component
+  return <MenuClient products={categories} locale={locale} />; // Pass categories if that's the correct data structure
 }
