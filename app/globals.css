@@ -64,9 +64,22 @@
     }
 
     .heading {
-        @apply uppercase bg-gradient-to-l from-gray-800 to-black px-6 py-3 font-work-sans font-extrabold text-white md:text-[54px] md:leading-[64px] sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
+        @apply uppercase
+               /* Mobile: Semi-transparent darker gradient */
+               bg-gradient-to-l from-gray-900/70 to-black/80
+               /* Desktop: Opaque gradient */
+               md:from-gray-800 md:to-black
+               /* Mobile: Smaller padding */
+               px-3 py-2 rounded-lg md:px-6 md:py-3
+               font-work-sans font-extrabold text-white
+               /* Add text shadow for readability */
+               [text-shadow:0_1px_3px_rgba(0,0,0,0.6)] /* Adjust color/blur as needed */
+               text-[36px] leading-[46px]
+               sm:text-[54px] sm:leading-[64px]
+               md:text-[54px] md:leading-[64px]
+               max-w-5xl text-center my-5;
     }
-
+    
     .sub-heading {
         @apply font-medium text-[20px] text-white max-w-2xl text-center break-words;
     }
@@ -76,7 +89,7 @@
     }
 
     .pricelist_container {
-        @apply px-6 py-10 max-w-7xl mx-6 md:mx-auto;
+        @apply px-2 py-4 max-w-7xl mx-6 md:mx-auto;
     }      
 
 

@@ -9,7 +9,7 @@ const Page = () => {
 
   return (
     <>
-      <section className='mt-[140px]'>
+      <section className='mt-[90px] md:mt-[140px]'>
         <ImageWithContent
           imageSrc="/bg1-mobile.webp"
           title={tAbout("heading")}

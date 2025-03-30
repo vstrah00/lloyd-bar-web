@@ -4,14 +4,29 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl"; // Import useTranslations
+import { useTranslations } from "next-intl";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const pathname = usePathname();
-  const t = useTranslations("Navbar"); // Fetch translations for the Navbar namespace
+  const t = useTranslations("Navbar");
+
+  // Function to strip locale part of the pathname (keep this)
+  const getLocalizedPathname = (pathname: string) => {
+    const segments = pathname.split('/');
+    if (segments[1] === "en" || segments[1] === "hr") {
+      return '/' + segments.slice(2).join('/');
+    }
+    return pathname;
+  };
+
+  // --- NEW: Determine if it's the home page ---
+  const localizedPathname = getLocalizedPathname(pathname);
+  const isHomePage = localizedPathname === '/';
+  // --- END NEW ---
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +43,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
     };
   }, [isMenuOpen]);
 
-  // Translate navigation items
   const navItems = [
     { name: t("home"), href: "/" },
     { name: t("priceList"), href: "/menu" },
@@ -38,15 +52,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
     { name: t("about"), href: "/about" },
   ];
 
-  // Function to strip locale part of the pathname (e.g. "/en/menu" => "/menu")
-  const getLocalizedPathname = (pathname: string) => {
-    const segments = pathname.split('/');
-    // If the first segment is a locale (like "en" or "hr"), remove it
-    if (segments[1] === "en" || segments[1] === "hr") {
-      return '/' + segments.slice(2).join('/');
-    }
-    return pathname; // If no locale, return the pathname as is
-  };
 
   return (
     <header
@@ -65,9 +70,24 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             <Image
               src="/logo.png"
               alt="Logo"
-              width={isScrolled ? 100 : 160} // Adjust size on scroll
-              height={60}
-              className="transition-all duration-500"
+              width={160} // Base width hint (largest size)
+              height={60} // Base height hint (adjust for aspect ratio if needed)
+              className={`
+                transition-all duration-500 h-auto
+                ${isScrolled
+                  // --- SCROLLED STATE ---
+                  // If Home: Use original scrolled mobile size (e.g., w-20).
+                  // If Not Home: Use smaller scrolled mobile size (e.g., w-16).
+                  // Desktop size remains md:w-[100px]
+                  ? `${isHomePage ? 'w-20' : 'w-16'} md:w-[100px]`
+                  // --- NOT SCROLLED STATE ---
+                  // If Home: Use original default mobile size (e.g., w-28).
+                  // If Not Home: Use smaller default mobile size (e.g., w-24).
+                  // Desktop size remains md:w-40
+                  : `${isHomePage ? 'w-34' : 'w-24'} md:w-40`
+                }
+              `}
+              priority
             />
           </Link>
         </div>
@@ -79,7 +99,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               key={item.href}
               href={item.href}
               className={`nav-link ${
-                (item.href === "/" ? getLocalizedPathname(pathname) === item.href : getLocalizedPathname(pathname).startsWith(item.href))
+                (item.href === "/" ? localizedPathname === item.href : localizedPathname.startsWith(item.href))
                   ? "active-link"
                   : ""
               }`}
@@ -93,10 +113,10 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={t("toggleMenu")} // Translate aria-label
+          aria-label={t("toggleMenu")}
           className={`md:hidden text-30-bold z-50 ${isMenuOpen ? "!text-white-100" : "!text-white"}`}
         >
-          {isMenuOpen ? <span>&#x2715;</span> : <span>&#9776;</span>}
+          {isMenuOpen ? <span>✕</span> : <span>☰</span>}
         </button>
       </nav>
 
@@ -105,10 +125,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         className={`fixed inset-0 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 ${
           isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
         }`}
-        style={{
-          top: 0, // Always stick to the top of the screen
-          height: "100vh", // Full height to cover the screen
-        }}
+        style={{ top: 0, height: "100vh" }}
       >
         {navItems.map((item) => (
           <Link
@@ -116,7 +133,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             href={item.href}
             onClick={() => setIsMenuOpen(false)}
             className={`nav-link text-30-semibold ${
-              (item.href === "/" ? getLocalizedPathname(pathname) === item.href : getLocalizedPathname(pathname).startsWith(item.href))
+              (item.href === "/" ? localizedPathname === item.href : localizedPathname.startsWith(item.href))
                 ? "active-link"
                 : "text-gray-400"
             }`}
@@ -124,11 +141,9 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             {item.name}
           </Link>
         ))}
-
         {children}
       </div>
     </header>
-    
   );
 };
 

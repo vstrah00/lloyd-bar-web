@@ -66,7 +66,7 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [], locale }) => {
   return (
     <>
       {/*Add a section here thats gonna be a tittle and some description for my drinks menu*/}
-      <section className='mt-[140px]'>
+      <section className='mt-[90px] md:mt-[140px]'>
         <NonIntrusiveTitleDesc
           title={tMenu("heading")}
           description={tMenu("subheading")}
@@ -99,7 +99,7 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [], locale }) => {
 
               {/* Category Products (toggle visibility on category click) */}
               {openCategory === category.name.en && (
-                <ul className="product-list p-6 pt-0 space-y-6">
+                <ul className="product-list px-2 pt-0 pb-4 space-y-6">
                   {category.products.map((product) => (
                     <li key={product._id} className="product-card">
                       <div
