@@ -27,7 +27,7 @@ const ImageWithContent: React.FC<ImageWithContentProps> = ({
   }, [reverse]);
 
   return (
-    <section className="w-full bg-gray-100 py-16">
+    <section className="w-full bg-gray-100 py-6 md:py-16 ">
       <div
         className={`container mx-auto flex flex-col lg:flex-row ${
           randomReverse ? "lg:flex-row-reverse" : ""
