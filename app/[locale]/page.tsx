@@ -2,6 +2,9 @@ import { BLOG_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
 import SearchForm from "@/components/SearchForm";
 import BlogCard, { BlogTypeCard } from "@/components/BlogCard";
+import LandingSection from "@/components/LandingSection";
+import LoginSignout from "@/components/LoginSigonut";
+import LandingContainer from "@/components/LandingContainer";
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ query: string }> }) {
   const query = (await searchParams).query;
@@ -10,6 +13,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
 
   return (
     <>
+      <LandingSection
+          loginSignout={<LoginSignout />}
+          landingContainer={<LandingContainer />}
+        />
       <section className="section_container">
         <p className="text-30-semibold">{query ? `Search results for "${query}"` : `All Posts`}</p>
         <SearchForm query={query} />

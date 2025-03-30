@@ -7,24 +7,26 @@ export const category = defineType({
   fields: [
     defineField({
       name: 'name',
-      type: 'string',
-      title: 'Category Name',
-      validation: (Rule) => Rule.required(),
+      type: 'object',
+      fields: [
+        { name: 'en', title: 'English', type: 'string' },
+        { name: 'hr', title: 'Croatian', type: 'string' },
+      ],
+      validation: (Rule) => Rule.required().error('Name is required in both languages!'),
     }),
     defineField({
       name: 'slug',
       type: 'slug',
       title: 'Slug',
       options: {
-        source: 'name',
-        maxLength: 96,
+        source: 'name.en', // Use English name for slug generation
       },
       validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {
     select: {
-      title: 'name',
+      title: 'name.en', // Use English name for preview
     },
   },
 });

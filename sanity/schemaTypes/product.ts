@@ -9,9 +9,13 @@ export const product = defineType({
   fields: [
     defineField({
       name: 'name',
-      type: 'string',
+      type: 'object',
       title: 'Name',
-      validation: (Rule) => Rule.required(),
+      fields: [
+        { name: 'en', title: 'English', type: 'string' },
+        { name: 'hr', title: 'Croatian', type: 'string' },
+      ],
+      validation: (Rule) => Rule.required().error('Name is required in both languages!'),
     }),
     defineField({
       name: 'price',
@@ -21,8 +25,12 @@ export const product = defineType({
     }),
     defineField({
       name: 'description',
-      type: 'text',
+      type: 'object',
       title: 'Description',
+      fields: [
+        { name: 'en', title: 'English', type: 'text' },
+        { name: 'hr', title: 'Croatian', type: 'text' },
+      ],
     }),
     defineField({
       name: 'image',
@@ -39,8 +47,8 @@ export const product = defineType({
   ],
   preview: {
     select: {
-      title: 'name',
-      subtitle: 'category.name',
+      title: 'name.en', // Use English name for preview
+      subtitle: 'category.name.en', // Use English category for preview
       media: 'image',
     },
   },

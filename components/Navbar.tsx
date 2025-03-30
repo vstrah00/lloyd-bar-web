@@ -56,7 +56,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
     >
       <nav
         className={`flex justify-between transition-all duration-500 2xl:w-[80%] xl:w-[80%] lg:w-[80%] items-center mx-auto
-          ${isScrolled ? "px-6 py-3 md:px-10 md:py-3" : "px-6 py-5 md:px-12 md:py-8"}
+          ${isScrolled ? "px-6 py-3 md:px-10 md:py-3" : "px-6 py-3 md:px-12 md:py-4"}
         `}
       >
         {/* Logo */}
@@ -73,7 +73,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1 text-30-extrabold">
+        <div className="hidden md:flex items-center gap-1 text-30-bold">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -94,7 +94,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={t("toggleMenu")} // Translate aria-label
-          className={`md:hidden text-30-bold z-50 ${isMenuOpen ? "!text-white-100" : "!text-black"}`}
+          className={`md:hidden text-30-bold z-50 ${isMenuOpen ? "!text-white-100" : "!text-white"}`}
         >
           {isMenuOpen ? <span>&#x2715;</span> : <span>&#9776;</span>}
         </button>
@@ -128,6 +128,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         {children}
       </div>
     </header>
+    
   );
 };
 

@@ -2,18 +2,15 @@
 
 import { ReactNode, useState, useEffect } from "react";
 import Image from "next/image";
-import Navbar from "./Navbar";
 import Wave from "./Wave"; // Import the Wave component
 
-const desktopBackgrounds = ["/bg1w.jpg", "/bg2.jpg", "/bg3.jpg", "/bg4.jpg", "/bg5.jpg"];
+const desktopBackgrounds = ["/bg1w.webp", "/bg2w.webp", "/bg3w.webp", "/bg4w.webp", "/bg5w.webp"];
 const mobileBackgrounds = ["/bg1-mobile-xs.webp", "/bg2-mobile.webp", "/bg3-mobile.webp", "/bg4-mobile.webp"];
 
 const LandingSection = ({
   landingContainer,
-  loginSignout,
-}: {
+  }: {
   landingContainer: ReactNode;
-  loginSignout: ReactNode;
 }) => {
   const [backgroundImages, setBackgroundImages] = useState<string[] | null>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
@@ -22,8 +19,13 @@ const LandingSection = ({
   const [imageKey, setImageKey] = useState(0);
   const [isHydrated, setIsHydrated] = useState(false);
   const [initialViewportHeight, setInitialViewportHeight] = useState<number | null>(null);
+  const [isBlogPage, setIsBlogPage] = useState(false);
 
   useEffect(() => {
+    // Check if the current URL contains '/blog/'
+    const pathname = window.location.pathname;
+    setIsBlogPage(pathname.includes("/blog/"));
+
     setIsHydrated(true);
 
     // Capture viewport height on first load and store it in a CSS variable
@@ -77,6 +79,12 @@ const LandingSection = ({
     });
   };
 
+  // If it's a blog page, do not render the landing section
+  if (isBlogPage) {
+    return null;
+    
+  }
+
   if (!isHydrated || !backgroundImages || !currentImage || !nextImage) {
     return <div className="w-full h-screen bg-black"></div>;
   }
@@ -112,11 +120,7 @@ const LandingSection = ({
           {/* Wave Component */}
           <Wave />
         </div>
-  
-        <div className="absolute top-0 left-0 w-full z-20">
-          <Navbar>{loginSignout}</Navbar>
-        </div>
-  
+ 
         <div className="relative z-10 mx-5">{landingContainer}</div> {/* Updated prop usage */}
   
         {/* Down Arrow Button */}

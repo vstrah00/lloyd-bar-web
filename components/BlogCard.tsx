@@ -21,18 +21,14 @@ const BlogCard = ({ post }: { post: BlogTypeCard }) => {
   const blogPitch = pitch?.[locale] || pitch?.en || ''; // Fallback to English if locale is missing
   const blogCategory = category?.[locale] || category?.en || 'Uncategorized';
 
-  console.log('raw:'+blogPitch);
-
   // Initialize markdown-it
   const md = markdownit();
 
   // Convert markdown to plain text
   const plainTextPitch = md.render(blogPitch).replace(/<[^>]*>/g, ''); // Strip HTML tags
-  console.log('Plain:'+plainTextPitch);
 
   // Extract the first 200 characters of the plain text pitch
   const truncatedPitch = plainTextPitch.slice(0, 200) + (plainTextPitch.length > 200 ? '...' : '');
-  console.log('Pitch:'+truncatedPitch);
 
   return (
     <li className='startup-card group'>
