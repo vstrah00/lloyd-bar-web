@@ -78,10 +78,7 @@ const LandingSection = ({
       top: remainingScroll,
       behavior: "smooth",
     });
-  };
-
-  const tHome = useTranslations("Home");
-  
+  };  
 
   // If it's a blog page, do not render the landing section
   if (isBlogPage) {
