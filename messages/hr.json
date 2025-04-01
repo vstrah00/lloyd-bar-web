@@ -27,5 +27,10 @@
       "privacyPolicy": "Pravila privatnosti",
       "instagramHandle": "Prati nas na Instagramu: @beach_bar_lloyd",
       "copyright": "© {year} Beach Bar Lloyd. Sva prava pridržana."
+  },
+  "CheersSection": {
+    "heading": "Spremni za rundu?",
+    "description": "Otkrijte naš osvježavajući izbor pića i pronađite svog novog favorita. Živjeli za dobra vremena!",
+    "menuButton": "Pogledajte Cjenik"
   }
 }
