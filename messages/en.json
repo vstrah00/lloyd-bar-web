@@ -27,5 +27,10 @@
       "privacyPolicy": "Privacy Policy",
       "instagramHandle": "Follow us on Instagram: @beach_bar_lloyd",
       "copyright": "© {year} Beach Bar Lloyd. All rights reserved."
+  },
+  "CheersSection": {
+    "heading": "Ready for a Round?",
+    "description": "Discover our refreshing selection of drinks and find your new favorite. Cheers to good times!",
+    "menuButton": "View Our Menu"
   }
 }
