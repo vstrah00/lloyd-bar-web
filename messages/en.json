@@ -11,6 +11,10 @@
     "heading": "A Slice of Paradise in Okrug Donji",
     "subheading": "Great coffee, ice-cold beers, and sweet treats by the sea – Beach Bar Lloyd is all about simple pleasures and good times."
   },
+  "Qrmenu": {
+    "heading": "Checkout what we have in store for you!",
+    "subheading": "Great coffee, cold beers, tasty ice-creams..."
+  },
   "Navbar": {
       "home": "Home",
       "priceList": "Price List",
@@ -32,5 +36,10 @@
     "heading": "Ready for a Round?",
     "description": "Discover our refreshing selection of drinks and find your new favorite. Cheers to good times!",
     "menuButton": "View Our Menu"
+  },
+  "ComingSoon": {
+    "heading": "Coming Soon!",
+    "subheading": "We’re mixing something special just for you...",
+    "description": "This page is still in the works, but good things take time. Check back soon for updates – or swing by the bar in the meantime for a drink and a view!"
   }
 }
