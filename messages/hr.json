@@ -11,6 +11,10 @@
     "heading": "Tvoj kutak raja u Okrugu Donjem",
     "subheading": "Odlična kava, hladna piva i slatke poslastice uz more – naš kafić je mjesto za uživanje u jednostavnim stvarima i dobrim trenucima."
   },
+  "Qrmenu": {
+    "heading": "Prolistajte što imamo u ponudi!",
+    "subheading": "Odlična kava, hladna piva, ukusni sladoledi..."
+  },
   "Navbar": {
       "home": "Početna",
       "priceList": "Cjenik",
@@ -32,5 +36,10 @@
     "heading": "Spremni za rundu?",
     "description": "Otkrijte naš osvježavajući izbor pića i pronađite svog novog favorita. Živjeli za dobra vremena!",
     "menuButton": "Pogledajte Cjenik"
+  },
+  "ComingSoon": {
+    "heading": "Uskoro dolazi!",
+    "subheading": "Nešto posebno se kuha samo za vas...",
+    "description": "Ova stranica je još u izradi, ali dobre stvari zahtijevaju malo vremena. Navratite uskoro ponovno – ili svratite do bara na piće i pogled!"
   }
 }

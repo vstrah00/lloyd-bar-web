@@ -28,6 +28,7 @@ export default function LandingContainer() {
   const tHome = useTranslations("Home");
   const tMenu = useTranslations("Menu");
   const tAbout = useTranslations("About");
+  const tQrmenu = useTranslations("Qrmenu");
 
   switch (page) {
     case "menu":
@@ -45,6 +46,15 @@ export default function LandingContainer() {
           <h1 className="heading">{tAbout("heading")}</h1>
           <p className="sub-heading">
             {tAbout("subheading")}
+          </p>
+        </section>
+      );
+    case "qr":
+      return (
+        <section className="landing_container">
+          <h1 className="heading">{tQrmenu("heading")}</h1>
+          <p className="sub-heading">
+            {tQrmenu("subheading")}
           </p>
         </section>
       );
