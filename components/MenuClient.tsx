@@ -143,7 +143,11 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [], locale }) => {
                 >
                   <div className="border-t border-neutral-100 bg-neutral-50/50">
                     <div className="p-4 space-y-4">
+<<<<<<< HEAD
                       {category.products.map((product) => (
+=======
+                      {category.products.map((product, index) => (
+>>>>>>> 2b96546c98e29f80d6596e4b44490dc9d9872c25
                         <div key={product._id} className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                           {/* Product Main Info */}
                           <div className="p-5">
