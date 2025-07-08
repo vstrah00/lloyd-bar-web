@@ -5,7 +5,7 @@ import Image from 'next/image';
 import imageUrlBuilder from '@sanity/image-url';
 import { client } from '@/sanity/lib/client';
 import NonIntrusiveTitleDesc from './NonIntrusiveTitleDesc';
-import { FaGlassMartiniAlt } from "react-icons/fa"; // Example icon, you can choose another icon
+import { FaChevronDown, FaChevronUp, FaGlassMartiniAlt, FaInfoCircle } from "react-icons/fa"; // Example icon, you can choose another icon
 import { useTranslations } from "next-intl";
 
 // Get a pre-configured url-builder from your sanity client
@@ -79,61 +79,110 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [], locale }) => {
         {products.length === 0 ? (
           <p className="text-center text-20-medium text-neutral-500">No products available</p>
         ) : (
-          products.map((category) => (
-            <div key={category._id} className="category mb-8 bg-white rounded-lg shadow-md overflow-hidden">
-              {/* Category Header */}
-              <div
-                className="category-header p-6 mb-2 cursor-pointer md:hover:bg-neutral-200 transition-colors"
-                onClick={() => {
-                  toggleCategory(category.name.en);
-                  setActiveProduct(null); // Reset active product when category is toggled
-                }}
-              >
-                <h2 className="text-2xl font-bold text-primary-dark flex items-center justify-between">
-                  {category.name[locale]}
-                  <span className="text-neutral-500 text-lg transition-transform transform rotate-0">
-                    {openCategory === category.name.en ? '▲' : '▼'}
-                  </span>
-                </h2>
-              </div>
-
-              {/* Category Products (toggle visibility on category click) */}
-              {openCategory === category.name.en && (
-                <ul className="product-list px-2 pt-0 pb-4 space-y-6">
-                  {category.products.map((product) => (
-                    <li key={product._id} className="product-card">
-                      <div
-                        className="product-card-header flex items-start space-x-6 cursor-pointer hover:bg-neutral-50 transition-colors p-4 rounded-lg"
-                        onClick={() => toggleDescription(product._id)}
-                      >
-                        {/* Product Image */}
-                        <div className="product-image w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
-                          <Image
-                            src={urlFor(product.image).width(200).url()} // Pass the whole image object
-                            alt={product.name[locale]}
-                            width={100}
-                            height={100}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-
-                        {/* Product Name and Price */}
-                        <div className="product-details flex-1">
-                          <h3 className="text-xl font-semibold text-neutral-800">{product.name[locale]}</h3>
-                          <p className="text-lg font-medium text-secondary-dark mt-1">{product.price}€</p>
-                        </div>
-                      </div>
-
-                      {/* Product Description (toggle visibility) */}
-                      {activeProduct === product._id && (
-                        <p className="text-base text-neutral-600 mt-4 pl-30">{product.description[locale]}</p>
+          <div className="space-y-6">
+            {products.map((category) => (
+              <div key={category._id} className="bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden">
+                {/* Category Header */}
+                <button
+                  id={`category-${category.name.en}`}
+                  className="w-full p-6 text-left hover:bg-neutral-50 transition-all duration-200 focus:outline-none"
+                  onClick={() => {
+                    toggleCategory(category.name.en);
+                    setActiveProduct(null);
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl md:text-2xl font-bold text-neutral-800">
+                      {category.name[locale]}
+                    </h2>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm text-neutral-500 font-medium">
+                        {category.products.length} items
+                      </span>
+                      {openCategory === category.name.en ? (
+                        <FaChevronUp className="text-neutral-400 text-sm transition-transform duration-300 ease-in-out" />
+                      ) : (
+                        <FaChevronDown className="text-neutral-400 text-sm transition-transform duration-300 ease-in-out" />
                       )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))
+                    </div>
+                  </div>
+                </button>
+
+                {/* Category Products */}
+                <div 
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    openCategory === category.name.en 
+                      ? 'max-h-none opacity-100' 
+                      : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <div className="border-t border-neutral-100 bg-neutral-50/50">
+                    <div className="p-4 space-y-4">
+                      {category.products.map((product) => (
+                        <div key={product._id} className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+                          {/* Product Main Info */}
+                          <div className="p-5">
+                            <div className="flex items-start space-x-4">
+                              {/* Product Image */}
+                              <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 rounded-xl overflow-hidden bg-neutral-100">
+                                <Image
+                                  src={urlFor(product.image).width(200).url()}
+                                  alt={product.name[locale]}
+                                  width={96}
+                                  height={96}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+
+                              {/* Product Details */}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-start justify-between mb-2">
+                                  <h3 className="text-lg md:text-xl font-semibold text-neutral-800 leading-tight">
+                                    {product.name[locale]}
+                                  </h3>
+                                  <div className="flex-shrink-0 ml-4">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-primary-100 text-primary-800">
+                                      {product.price}€
+                                    </span>
+                                  </div>
+                                </div>
+                                
+                                {/* Description Toggle Button */}
+                                <button
+                                  onClick={() => toggleDescription(product._id)}
+                                  className="inline-flex items-center space-x-2 text-sm text-neutral-600 hover:text-primary-600 transition-colors duration-200 focus:outline-none"
+                                >
+                                  <FaInfoCircle className="text-xs" />
+                                  <span className="font-medium">
+                                    {activeProduct === product._id ? 'Hide details' : 'View details'}
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Product Description */}
+                            <div 
+                              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                                activeProduct === product._id 
+                                  ? 'max-h-96 opacity-100 mt-4' 
+                                  : 'max-h-0 opacity-0 mt-0'
+                              }`}
+                            >
+                              <div className="pt-4 border-t border-neutral-100">
+                                <p className="text-neutral-600 leading-relaxed text-sm md:text-base">
+                                  {product.description[locale]}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </section>
     </>
