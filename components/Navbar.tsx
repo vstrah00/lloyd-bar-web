@@ -49,6 +49,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
     { name: t("events"), href: "/events" },
     { name: t("games"), href: "/games" },
     { name: t("gallery"), href: "/gallery" },
+    { name: t("blog"), href: "/blogPage" },
     { name: t("about"), href: "/about" },
   ];
 

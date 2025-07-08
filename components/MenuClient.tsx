@@ -110,7 +110,7 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [], locale }) => {
                 {/* Category Header */}
                 <button
                   id={`category-${category.name.en}`}
-                  className="w-full p-6 text-left hover:bg-neutral-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset"
+                  className="w-full p-6 text-left hover:bg-neutral-50 transition-all duration-200 focus:outline-none"
                   onClick={() => {
                     toggleCategory(category.name.en);
                     setActiveProduct(null);
@@ -175,7 +175,7 @@ const MenuClient: React.FC<MenuClientProps> = ({ products = [], locale }) => {
                                 {/* Description Toggle Button */}
                                 <button
                                   onClick={() => toggleDescription(product._id)}
-                                  className="inline-flex items-center space-x-2 text-sm text-neutral-600 hover:text-primary-600 transition-colors duration-200 focus:outline-none focus:text-primary-600"
+                                  className="inline-flex items-center space-x-2 text-sm text-neutral-600 hover:text-primary-600 transition-colors duration-200 focus:outline-none"
                                 >
                                   <FaInfoCircle className="text-xs" />
                                   <span className="font-medium">
