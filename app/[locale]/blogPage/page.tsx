@@ -49,7 +49,7 @@ export default async function Blog({
             {currentPage > 1 && (
               <Link
                 href={`?page=${currentPage - 1}${query ? `&query=${query}` : ''}`}
-                className="startup-card_btn px-4 py-2 border rounded"
+                className="startup-card_btn_primary px-4 py-2 border rounded"
               >
                 Previous
               </Link>
@@ -58,7 +58,7 @@ export default async function Blog({
             {currentPage < totalPages && (
               <Link
                 href={`?page=${currentPage + 1}${query ? `&query=${query}` : ''}`}
-                className="startup-card_btn px-4 py-2 border rounded"
+                className="startup-card_btn_primary px-4 py-2 border rounded"
               >
                 Next
               </Link>

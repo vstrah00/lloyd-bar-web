@@ -203,6 +203,9 @@
         @apply rounded-full bg-black-200 font-medium text-[16px] text-white px-5 py-3 !important;
     }
 
+    .startup-card_btn_primary {
+        @apply rounded-full bg-black-100 hover:bg-black-300 text-white font-semibold text-[17px] px-3 py-3 shadow-md transition duration-200 ease-in-out !important;
+    }
     .startup-card_skeleton {
         @apply w-full h-96 rounded-[22px] bg-zinc-400;
     }

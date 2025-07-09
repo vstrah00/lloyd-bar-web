@@ -31,7 +31,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
   </ul>
 
   <div className="mt-10 text-right">
-    <Link href="/blogPage" className="startup-card_btn mt-6 px-4 py-2 border rounded">
+    <Link href="/blogPage" className="startup-card_btn_primary mt-6 px-4 py-2 border rounded">
       View All Blogs
     </Link>
   </div>
