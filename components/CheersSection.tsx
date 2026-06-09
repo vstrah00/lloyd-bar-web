@@ -4,38 +4,64 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import BeerMugAnimation from './BeerMugAnimation';
+import { usePathname } from 'next/navigation';
+import { Clock, Instagram, MapPin, Utensils } from 'lucide-react';
 
 const CheersSection = () => {
   const t = useTranslations('CheersSection');
+  const pathname = usePathname();
+  const locale = pathname.split('/')[1] === 'hr' ? 'hr' : 'en';
+
+  const actions = [
+    {
+      href: `/${locale}/menu`,
+      icon: Utensils,
+      title: t('menuTitle'),
+      description: t('menuDescription'),
+    },
+    {
+      href: 'https://www.google.com/maps/search/?api=1&query=Beach%20Bar%20Lloyd%20Okrug%20Donji',
+      icon: MapPin,
+      title: t('locationTitle'),
+      description: t('locationDescription'),
+    },
+    {
+      href: 'https://instagram.com/beach_bar_lloyd',
+      icon: Instagram,
+      title: t('instagramTitle'),
+      description: t('instagramDescription'),
+    },
+  ];
 
   return (
-    <section className="cheers-section pt-12 pb-7 md:pb-10 md:pt-24 overflow-hidden flex items-center justify-center min-h-[30vh]">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-center md:gap-12 w-full">
-        {/* Text Content - Centered on all screens */}
-        <div className="text-content w-full md:w-1/2 text-center order-2 md:order-1">
-          <div className="max-w-lg mx-auto"> {/* Centered container */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 font-work-sans leading-tight">
+    <section className="bg-zinc-950 py-12 md:py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 text-sm font-semibold text-sky-100">
+              <Clock className="h-4 w-4 text-amber-300" aria-hidden="true" />
+              {t('season')}
+            </div>
+            <h2 className="max-w-xl text-3xl font-bold leading-tight text-white md:text-5xl">
               {t('heading')}
             </h2>
-            <p className="text-lg text-gray-300 mb-6 mx-auto max-w-md">
+            <p className="mt-4 max-w-xl text-base leading-7 text-zinc-300 md:text-lg">
               {t('description')}
             </p>
-            <div className="flex justify-center">
-              <Link
-                href="/menu"
-                className="inline-block bg-amber-500 hover:bg-amber-600 text-black font-semibold py-3 px-8 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
-              >
-                {t('menuButton')}
-              </Link>
-            </div>
           </div>
-        </div>
 
-        {/* Animation Container - Centered on all screens */}
-        <div className="w-full md:w-1/2 flex justify-center order-1 md:order-2">
-          <div className="w-full max-w-xs h-64 flex items-center justify-center">
-            <BeerMugAnimation/>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {actions.map(({ href, icon: Icon, title, description }) => (
+              <Link
+                key={title}
+                href={href}
+                className="group rounded-md border border-white/10 bg-white/[0.04] p-4 text-white transition hover:border-amber-300/60 hover:bg-white/[0.08]"
+              >
+                <Icon className="mb-4 h-6 w-6 text-amber-300" aria-hidden="true" />
+                <h3 className="text-base font-semibold">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-300">{description}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

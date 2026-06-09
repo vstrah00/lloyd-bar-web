@@ -1,5 +1,4 @@
 import Footer from "@/components/Footer";
-import LoginSignout from "@/components/LoginSigonut";
 import FloatingLanguageButton from "@/components/FloatingLanguageButton"; // Import the floating button
 import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
@@ -36,7 +35,7 @@ export default async function Layout({ children, params }: LayoutProps) {
     <NextIntlClientProvider messages={messages} locale={locale}>
       <div className="min-h-screen flex flex-col bg-black">
         <Navbar>
-          <LoginSignout/>
+          {null}
         </Navbar>
 
         {/* Add the FloatingLanguageButton to the layout */}

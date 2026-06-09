@@ -68,6 +68,36 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type GalleryImage = {
+  _id: string;
+  _type: "galleryImage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: {
+    en?: string;
+    hr?: string;
+  };
+  caption?: {
+    en?: string;
+    hr?: string;
+  };
+  eventDate?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  sortOrder?: number;
+  featured?: boolean;
+};
+
 export type Product = {
   _id: string;
   _type: "product";
@@ -227,5 +257,5 @@ export type Author = {
 
 export type Markdown = string;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Product | Category | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Blog | Slug | Author | Markdown;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | GalleryImage | Product | Category | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Blog | Slug | Author | Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;

@@ -20,24 +20,25 @@ const FloatingLanguageToggle = ({ languages }: { languages: string[] }) => {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+    <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3 md:bottom-8 md:right-8">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 rounded-full bg-primary border-white-100 border-2 text-white text-sm font-semibold transition-all duration-300"
+        className="min-h-11 min-w-11 rounded-full border border-white/70 bg-black/55 px-3 text-sm font-semibold text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-primary"
+        aria-label="Change language"
       >
         {pathname.split("/")[1] === "en" ? "EN" : "HR"}
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-16 right-0 bg-white shadow-md rounded-lg mt-2 py-2 w-32 text-center">
+        <div className="absolute bottom-14 right-0 w-32 overflow-hidden rounded-md border border-white/20 bg-zinc-950/95 py-1 text-center shadow-xl backdrop-blur-md">
           {languages.map((lang) => (
             <button
               key={lang}
               onClick={() => handleLanguageChange(lang)}
-              className={`block px-4 py-2 text-sm w-full text-gray-700 ${
+              className={`block w-full px-4 py-2 text-sm font-semibold ${
                 lang === pathname.split("/")[1]
                   ? "bg-primary text-white"
-                  : "hover:bg-gray-200"
+                  : "text-zinc-200 hover:bg-white/10"
               }`}
             >
               {lang.toUpperCase()}

@@ -57,5 +57,15 @@ export const CATEGORY_QUERY = defineQuery(`
     }
   }
 `);
+
+export const GALLERY_QUERY = defineQuery(`
+  *[_type == "galleryImage" && featured != false] | order(sortOrder asc, _createdAt desc) {
+    _id,
+    title,
+    caption,
+    eventDate,
+    image
+  }
+`);
     
 

@@ -4,8 +4,8 @@ import { ReactNode, useState, useEffect } from "react";
 import Image from "next/image";
 import Wave from "./Wave"; // Import the Wave component
 
-const desktopBackgrounds = ["/bg1w.webp", "/bg2w.webp", "/bg3w.webp", "/bg4w.webp", "/bg5w.webp"];
-const mobileBackgrounds = ["/bg1-mobile-xs.webp", "/bg2-mobile.webp", "/bg3-mobile.webp", "/bg4-mobile.webp"];
+const desktopBackgrounds = ["/bg1-hero.webp", "/bg2-hero.webp", "/bg3-hero.webp", "/bg4-hero.webp", "/bg5-hero.webp"];
+const mobileBackgrounds = ["/bg1-hero-mobile.webp", "/bg2-hero-mobile.webp", "/bg3-hero-mobile.webp", "/bg4-hero-mobile.webp"];
 
 const LandingSection = ({
   landingContainer,
@@ -92,13 +92,14 @@ const LandingSection = ({
   return (
     <>
       <div className="relative w-full h-[var(--fixed-vh)] flex items-center justify-center overflow-hidden landing-section">
-        <div className="absolute inset-0 w-full h-[var(--fixed-vh)] border-8 border-[#FFFFF] bg-clip-padding z-0 overflow-hidden">
+        <div className="absolute inset-0 w-full h-[var(--fixed-vh)] border-8 border-white bg-clip-padding z-0 overflow-hidden">
           {/* Current Image */}
           <Image
             key={`current-${imageKey}`}
             src={currentImage}
             alt="Background Image"
             fill
+            sizes="100vw"
             priority
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               isTransitioning ? "opacity-0" : "opacity-100"
@@ -111,6 +112,7 @@ const LandingSection = ({
             src={nextImage}
             alt="Next Background Image"
             fill
+            sizes="100vw"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               isTransitioning ? "opacity-100" : "opacity-0"
             } ${isTransitioning ? "animate-zoom" : ""}`}

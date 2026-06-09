@@ -9,38 +9,83 @@
   },
   "About": {
     "heading": "Tvoj kutak raja u Okrugu Donjem",
-    "subheading": "Odlična kava, hladna piva i slatke poslastice uz more – naš kafić je mjesto za uživanje u jednostavnim stvarima i dobrim trenucima."
+    "subheading": "Odlična kava, hladna piva i slatke poslastice uz more - naš kafić je mjesto za uživanje u jednostavnim stvarima i dobrim trenucima."
   },
   "Qrmenu": {
     "heading": "Prolistajte što imamo u ponudi!",
     "subheading": "Odlična kava, hladna piva, ukusni sladoledi..."
   },
   "Navbar": {
-      "home": "Početna",
-      "priceList": "Cjenik",
-      "events": "Događaji",
-      "games": "Igre",
-      "gallery": "Galerija",
-      "blog": "Blogovi",
-      "about": "O nama",
-      "toggleMenu": "Otvori izbornik"
+    "home": "Početna",
+    "priceList": "Cjenik",
+    "events": "Događaji",
+    "games": "Igre",
+    "gallery": "Galerija",
+    "blog": "Blogovi",
+    "about": "O nama",
+    "toggleMenu": "Otvori izbornik"
   },
   "Footer": {
-      "aboutUs": "O nama",
-      "services": "Usluge",
-      "contact": "Kontakt",
-      "privacyPolicy": "Pravila privatnosti",
-      "instagramHandle": "Prati nas na Instagramu: @beach_bar_lloyd",
-      "copyright": "© {year} Beach Bar Lloyd. Sva prava pridržana."
+    "aboutUs": "O nama",
+    "menu": "Cjenik",
+    "location": "Lokacija",
+    "instagramHandle": "Prati nas na Instagramu: @beach_bar_lloyd",
+    "copyright": "© {year} Beach Bar Lloyd. Sva prava pridržana."
   },
   "CheersSection": {
-    "heading": "Spremni za rundu?",
-    "description": "Otkrijte naš osvježavajući izbor pića i pronađite svog novog favorita. Živjeli za dobra vremena!",
-    "menuButton": "Pogledajte Cjenik"
+    "season": "Beach bar u Okrugu Donjem",
+    "heading": "Hladno piće, more i lagano mjesto za druženje.",
+    "description": "Biraš li brzu kavu, pivo uz zalazak ili nešto slatko nakon plaže, najvažnije stvari su odmah pri ruci.",
+    "menuTitle": "Cjenik",
+    "menuDescription": "Pogledaj ponudu i cijene prije narudžbe.",
+    "locationTitle": "Pronađi nas",
+    "locationDescription": "Otvori kartu i dođi ravno do mora.",
+    "instagramTitle": "Instagram",
+    "instagramDescription": "Zaprati fotografije, novosti i ljetne trenutke."
+  },
+  "HomePage": {
+    "highlightsEyebrow": "Jednostavni gušti",
+    "highlightsHeading": "Sve što treba nakon plaže.",
+    "highlightsDescription": "Beach Bar Lloyd je tu za male stvari koje dan uz more čine boljim: dobra kava, nešto hladno, nešto slatko i mjesto za sjesti blizu mora.",
+    "coffeeTitle": "Kava",
+    "coffeeDescription": "Lagan početak dana ili kratka pauza između kupanja.",
+    "drinksTitle": "Hladna pića",
+    "drinksDescription": "Pivo, žestice i osvježenje za tople dane.",
+    "iceCreamTitle": "Sladoled",
+    "iceCreamDescription": "Slatka stanica za djecu, obitelji i šetnje uz more.",
+    "seaTitle": "Pogled na more",
+    "seaDescription": "Ostani zbog povjetarca, zalaska i laganog ritma.",
+    "coffeeAction": "Otvori cjenik",
+    "drinksAction": "Otvori cjenik",
+    "iceCreamAction": "Otvori cjenik",
+    "seaAction": "Pogledaj galeriju"
+  },
+  "Gallery": {
+    "eyebrow": "Beach Bar Lloyd",
+    "heading": "Trenuci uz more",
+    "description": "Kratki pogled na more, obalu i lagani ljetni ritam oko bara.",
+    "sunset": "Zalazak uz obalu",
+    "terrace": "Terasa uz plažu",
+    "sea": "Pogled na more",
+    "evening": "Večernje svjetlo",
+    "summer": "Ljetni ugođaj",
+    "fallbackAlt": "Fotografija Beach Bar Lloyd galerije"
+  },
+  "QrMenu": {
+    "eyebrow": "Cjenik",
+    "heading": "Odaberi kategoriju",
+    "description": "Dodirni kategoriju za pregled pića i cijena.",
+    "items": "{count} stavki",
+    "empty": "Trenutno nema proizvoda",
+    "viewDetails": "Prikaži detalje",
+    "hideDetails": "Sakrij detalje"
+  },
+  "BlogCard": {
+    "details": "Detalji"
   },
   "ComingSoon": {
     "heading": "Uskoro dolazi!",
     "subheading": "Nešto posebno se kuha samo za vas...",
-    "description": "Ova stranica je još u izradi, ali dobre stvari zahtijevaju malo vremena. Navratite uskoro ponovno – ili svratite do bara na piće i pogled!"
+    "description": "Ova stranica je još u izradi, ali dobre stvari zahtijevaju malo vremena. Navratite uskoro ponovno - ili svratite do bara na piće i pogled!"
   }
 }

@@ -2,10 +2,14 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 const Footer = () => {
   const t = useTranslations("Footer");
+  const pathname = usePathname();
+  const locale = pathname.split('/')[1] === 'hr' ? 'hr' : 'en';
   
   // Pre-calculate the current year
   const currentYear = new Date().getFullYear();
@@ -15,13 +19,13 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-top">
           <div className="footer-logo">
-            <img src="/logo.png" alt="My Website Logo" width={150} height={50} />
+            <Image src="/logo.png" alt="Beach Bar Lloyd" width={150} height={50} className="h-auto w-auto" />
           </div>
           <div className="footer-links">
-            <Link href="/about" className="footer-link">{t("aboutUs")}</Link>
-            <Link href="/services" className="footer-link">{t("services")}</Link>
-            <Link href="/contact" className="footer-link">{t("contact")}</Link>
-            <Link href="/privacy-policy" className="footer-link">{t("privacyPolicy")}</Link>
+            <Link href={`/${locale}/about`} className="footer-link">{t("aboutUs")}</Link>
+            <Link href={`/${locale}/menu`} className="footer-link">{t("menu")}</Link>
+            <Link href="https://www.google.com/maps/search/?api=1&query=Beach%20Bar%20Lloyd%20Okrug%20Donji" className="footer-link">{t("location")}</Link>
+            <Link href="https://instagram.com/beach_bar_lloyd" className="footer-link">Instagram</Link>
           </div>
         </div>
         <div className="footer-bottom">
@@ -32,7 +36,7 @@ const Footer = () => {
               aria-label="Instagram"
             >
               <div className="flex items-center space-x-2">
-                <img src="/insta-icon.png" alt="Instagram" className="w-6 h-6 mt-1" />
+                <Image src="/insta-icon.png" alt="" width={24} height={24} className="mt-1 h-6 w-6" />
                 <span className="footer-link">
                   {t("instagramHandle")}
                 </span>

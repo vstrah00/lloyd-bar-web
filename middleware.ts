@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server'; // Import NextRequest for typing
 
 const nextIntlMiddleware = createMiddleware({
   locales: ['en', 'hr'], // Define available languages (English & Croatian)
-  defaultLocale: 'en', // Default to English
+  defaultLocale: 'hr', // Default to Croatian for local visitors and table QR codes
 });
 
 export default function middleware(request: NextRequest) {

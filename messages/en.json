@@ -9,38 +9,83 @@
   },
   "About": {
     "heading": "A Slice of Paradise in Okrug Donji",
-    "subheading": "Great coffee, ice-cold beers, and sweet treats by the sea – Beach Bar Lloyd is all about simple pleasures and good times."
+    "subheading": "Great coffee, ice-cold beers, and sweet treats by the sea - Beach Bar Lloyd is all about simple pleasures and good times."
   },
   "Qrmenu": {
-    "heading": "Checkout what we have in store for you!",
-    "subheading": "Great coffee, cold beers, tasty ice-creams..."
+    "heading": "Check out what we have in store for you!",
+    "subheading": "Great coffee, cold beers, tasty ice creams..."
   },
   "Navbar": {
-      "home": "Home",
-      "priceList": "Price List",
-      "events": "Events",
-      "games": "Games",
-      "gallery": "Gallery",
-      "blog": "Blogs",
-      "about": "About",
-      "toggleMenu": "Toggle Menu"
+    "home": "Home",
+    "priceList": "Price List",
+    "events": "Events",
+    "games": "Games",
+    "gallery": "Gallery",
+    "blog": "Blogs",
+    "about": "About",
+    "toggleMenu": "Toggle Menu"
   },
   "Footer": {
-      "aboutUs": "About Us",
-      "services": "Services",
-      "contact": "Contact",
-      "privacyPolicy": "Privacy Policy",
-      "instagramHandle": "Follow us on Instagram: @beach_bar_lloyd",
-      "copyright": "© {year} Beach Bar Lloyd. All rights reserved."
+    "aboutUs": "About Us",
+    "menu": "Menu",
+    "location": "Location",
+    "instagramHandle": "Follow us on Instagram: @beach_bar_lloyd",
+    "copyright": "© {year} Beach Bar Lloyd. All rights reserved."
   },
   "CheersSection": {
-    "heading": "Ready for a Round?",
-    "description": "Discover our refreshing selection of drinks and find your new favorite. Cheers to good times!",
-    "menuButton": "View Our Menu"
+    "season": "Beach bar in Okrug Donji",
+    "heading": "Cold drinks, sea air, and an easy place to meet.",
+    "description": "Whether you are choosing a quick coffee, a sunset beer, or something sweet after the beach, the useful stuff is one tap away.",
+    "menuTitle": "Menu",
+    "menuDescription": "Browse drinks and prices before you order.",
+    "locationTitle": "Find Us",
+    "locationDescription": "Open the map and head straight for the shore.",
+    "instagramTitle": "Instagram",
+    "instagramDescription": "Follow photos, updates, and summer moments."
+  },
+  "HomePage": {
+    "highlightsEyebrow": "Simple pleasures",
+    "highlightsHeading": "Everything you want after the beach.",
+    "highlightsDescription": "Beach Bar Lloyd is built around the small things that make a seaside day better: a proper coffee, something cold, something sweet, and a place to sit close to the sea.",
+    "coffeeTitle": "Coffee",
+    "coffeeDescription": "Start easy or take a quick break between swims.",
+    "drinksTitle": "Cold Drinks",
+    "drinksDescription": "Beer, spirits, and refreshing choices for warm days.",
+    "iceCreamTitle": "Ice Cream",
+    "iceCreamDescription": "A sweet stop for kids, families, and beach walks.",
+    "seaTitle": "Sea View",
+    "seaDescription": "Stay for the breeze, the sunset, and the relaxed pace.",
+    "coffeeAction": "Open menu",
+    "drinksAction": "Open menu",
+    "iceCreamAction": "Open menu",
+    "seaAction": "View gallery"
+  },
+  "Gallery": {
+    "eyebrow": "Beach Bar Lloyd",
+    "heading": "Moments by the sea",
+    "description": "A quick look at the view, the shore, and the easy summer mood around the bar.",
+    "sunset": "Sunset at the shore",
+    "terrace": "Beachside terrace",
+    "sea": "Sea view",
+    "evening": "Evening light",
+    "summer": "Summer mood",
+    "fallbackAlt": "Beach Bar Lloyd gallery photo"
+  },
+  "QrMenu": {
+    "eyebrow": "Menu",
+    "heading": "Choose a category",
+    "description": "Tap a category to browse drinks and prices.",
+    "items": "{count} items",
+    "empty": "No products available",
+    "viewDetails": "View details",
+    "hideDetails": "Hide details"
+  },
+  "BlogCard": {
+    "details": "Details"
   },
   "ComingSoon": {
     "heading": "Coming Soon!",
-    "subheading": "We’re mixing something special just for you...",
-    "description": "This page is still in the works, but good things take time. Check back soon for updates – or swing by the bar in the meantime for a drink and a view!"
+    "subheading": "We're mixing something special just for you...",
+    "description": "This page is still in the works, but good things take time. Check back soon for updates - or swing by the bar in the meantime for a drink and a view!"
   }
 }
