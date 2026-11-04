@@ -15,8 +15,9 @@ The **Menu manager** tab in `/studio` shows the current menu, with drafts taking
 1. Edit the table, or choose **Export menu CSV** and open it in Excel, Numbers or Google Sheets.
 2. Keep the headers and IDs. Save as comma-separated CSV with UTF-8 encoding. Prices use a decimal point (`3.50`); menu orders are non-negative integers.
 3. Choose **Import menu CSV**. The review shows each changed field's old and new value. The import does not write to Sanity yet.
-4. Choose **Save drafts**. The entire batch saves in one transaction. Existing drafts use revision checks; concurrent edits detected during the preflight stop the save. Export pending edits before reloading after a conflict.
-5. Open the saved document links to check and **Publish** in Sanity's editor. New categories must be published before products referencing them. Allow about 20 seconds for the website's menu cache to refresh.
+4. Choose **Publish**. The whole batch goes live in one transaction, including existing drafts of changed documents. New categories and products are published together automatically. Allow about 20 seconds for the website's menu cache to refresh.
+
+Revision checks stop publication if another editor has changed the same documents. Export pending edits before reloading after a conflict. Images, extra locales, and fields outside the CSV are preserved. Successfully published drafts are cleared automatically; there is no separate document-by-document publishing step.
 
 Pending table/import edits are kept in this tab only. Save or export them before switching Studio tools or navigating away. **Export menu CSV** includes pending table edits as well as the fetched drafts. **Discard pending edits** restores the last fetched snapshot; **Reload from Sanity** then fetches the latest version.
 
@@ -24,7 +25,7 @@ Pending table/import edits are kept in this tab only. Save or export them before
 
 | Column | Meaning |
 | --- | --- |
-| `id` | Stable document ID. Do not change existing IDs. New IDs use letters, numbers, `_` or `-`. |
+| `id` | Stable document ID. Do not change existing IDs. New IDs start with a letter or number, followed by letters, numbers, `_` or `-`. |
 | `type` | `category` or `product`; existing types cannot change. |
 | `name_en`, `name_hr` | English and Croatian names, required for changed/new records. |
 | `sortOrder` | Menu order. Blank removes an existing explicit order. |
