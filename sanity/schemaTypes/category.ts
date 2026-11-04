@@ -1,10 +1,13 @@
 import { defineField, defineType } from 'sanity';
+import { menuOrderField, menuOrderings } from './menuOrder';
 
 export const category = defineType({
   name: 'category',
   title: 'Category',
   type: 'document',
+  orderings: menuOrderings,
   fields: [
+    menuOrderField,
     defineField({
       name: 'name',
       type: 'object',
