@@ -36,7 +36,7 @@ export const BLOG_BY_ID_QUERY = defineQuery(`
 `);
 
 export const PRODUCT_QUERY = defineQuery(`
-            *[_type=="product"]{
+            *[_type=="product"] | order(sortOrder asc, name.en asc, _id asc) {
                 _id, name, price, description
             }
     `)
@@ -44,10 +44,10 @@ export const PRODUCT_QUERY = defineQuery(`
 
 
 export const CATEGORY_QUERY = defineQuery(`
-  *[_type == "category"] {
+  *[_type == "category"] | order(sortOrder asc, name.en asc, _id asc) {
     _id,
     name,
-    "products": *[_type == "product" && references(^._id)] | order(_updatedAt desc) {
+    "products": *[_type == "product" && category._ref == ^._id] | order(sortOrder asc, name.en asc, _id asc) {
       _id,
       name,
       price,

@@ -13,6 +13,7 @@ import {apiVersion, dataset, projectId} from './sanity/env'
 import {schema} from './sanity/schemaTypes'
 import {structure} from './sanity/structure'
 import {markdownSchema} from "sanity-plugin-markdown"
+import {menuManagerTool} from './sanity/tools/MenuManager'
 
 export default defineConfig({
   basePath: '/studio',
@@ -20,6 +21,7 @@ export default defineConfig({
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
+  tools: [menuManagerTool],
   plugins: [
     structureTool({structure}),
     // Vision is for querying with GROQ from inside the Studio

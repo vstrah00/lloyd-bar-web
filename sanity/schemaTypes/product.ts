@@ -1,12 +1,15 @@
 import { CupSoda } from 'lucide-react';
 import { defineField, defineType } from 'sanity';
+import { menuOrderField, menuOrderings } from './menuOrder';
 
 export const product = defineType({
   name: 'product',
   title: 'Product',
   type: 'document',
   icon: CupSoda,
+  orderings: menuOrderings,
   fields: [
+    menuOrderField,
     defineField({
       name: 'name',
       type: 'object',

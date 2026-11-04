@@ -17,6 +17,8 @@ Current focus on functionality, later the focus will turn to the beauty factor
 
 # Lloyd's Beach Bar Website
 
+For category/product ordering, bulk CSV editing in Studio, and full content backups, see [Managing Sanity content](docs/sanity-content.md).
+
 This repository contains the source code for the official website of Lloyd's Beach Bar. The website provides information about the bar, including the menu, events, gallery, and contact details. Additionally, it features a user login system for accessing exclusive content and functionalities.
 
 ## Table of Contents
