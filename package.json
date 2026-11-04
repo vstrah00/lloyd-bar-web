@@ -10,7 +10,7 @@
     "predev": "npm run typegen",
     "prebuild": "npm run typegen",
     "typegen": "sanity schema extract --path=./sanity/extract.json && sanity typegen generate",
-    "test:menu": "node --experimental-strip-types --test tests/menu-data.test.mjs",
+    "test:menu": "node --experimental-strip-types --test tests/menu-data.test.mjs tests/public-menu.test.mjs",
     "sanity:login": "sanity login",
     "sanity:export": "sanity dataset export",
     "sanity:import": "sanity dataset import"
