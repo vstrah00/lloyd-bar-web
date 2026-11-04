@@ -5,7 +5,7 @@ import {useClient} from 'sanity'
 import {IntentLink} from 'sanity/router'
 import {ArrowDownUp} from 'lucide-react'
 import {
-  assertUnchanged, columns, draftSeed, effectiveDocuments, exportCsv,
+  assertUnchanged, columns, effectiveDocuments, exportCsv, publishMutations,
   menuRows, parseCsv, planChanges,
   type MenuChange, type MenuDocument, type MenuRow,
 } from './menuData'
@@ -39,7 +39,6 @@ export function MenuManager() {
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
   const [review, setReview] = useState<MenuChange[] | null>(null)
-  const [saved, setSaved] = useState<{id: string; name: string}[]>([])
   const fileInput = useRef<HTMLInputElement>(null)
   const initialRows = useMemo(() => menuRows(documents), [documents])
   const dirty = JSON.stringify(initialRows) !== JSON.stringify(rows)
@@ -70,7 +69,6 @@ export function MenuManager() {
     setRows((current) => current.map((row) => row.id === id ? {...row, [key]: value} : row))
     setReview(null)
     setNotice('')
-    setSaved([])
   }
 
   const reviewChanges = () => {
@@ -78,7 +76,7 @@ export function MenuManager() {
     try {
       const changes = planChanges(rows, documents)
       setReview(changes)
-      if (!changes.length) setNotice('No changes to save.')
+      if (!changes.length) setNotice('No changes to publish.')
     } catch (cause) { setError(errorMessage(cause)); setReview(null) }
   }
 
@@ -97,13 +95,12 @@ export function MenuManager() {
       const changes = planChanges(nextRows, documents)
       setRows(nextRows)
       setReview(changes)
-      setSaved([])
-      setNotice(`Read ${imported.length} CSV rows. Review ${changes.length} changed documents below before saving.`)
+      setNotice(`Read ${imported.length} CSV rows. Review ${changes.length} changed documents below before publishing.`)
     } catch (cause) { setError(errorMessage(cause)) }
     finally { setBusy(false) }
   }
 
-  const saveDrafts = async () => {
+  const publishChanges = async () => {
     if (!review?.length) return
     setBusy(true)
     setError('')
@@ -114,28 +111,13 @@ export function MenuManager() {
       const fresh = (await Promise.all(batches.map((batch) => client.getDocuments<MenuDocument>(batch))))
         .flat().filter((doc) => doc !== null)
       assertUnchanged(documents, fresh, review)
-      let transaction = client.transaction()
-      for (const change of review) {
-        const draftId = `drafts.${change.id}`
-        const draft = fresh.find((doc) => doc._id === draftId)
-        // create() fails if another editor creates this draft in the meantime.
-        if (!draft) transaction = transaction.create(draftSeed(change))
-        transaction = transaction.patch(draftId, (patch) => {
-          let next = patch.setIfMissing(change.row.type === 'product' ? {name: {}, description: {}} : {name: {}})
-            .set(change.set)
-          if (change.unset.length) next = next.unset(change.unset)
-          return draft ? next.ifRevisionId(draft._rev) : next
-        })
-      }
-      await transaction.commit({visibility: 'sync'})
-      const savedChanges = review.map((change) => ({id: change.id, name: change.row.name_en}))
-      setSaved(savedChanges)
-      setNotice(`Saved ${review.length} ${review.length === 1 ? 'draft' : 'drafts'}. Open the documents below to check and publish them. Publish new categories before their products.`)
-      // Don't repeat the transaction if the reload fails after a successful save.
+      await client.mutate(publishMutations(review, fresh), {visibility: 'sync'})
+      setNotice(`Published ${review.length} ${review.length === 1 ? 'document' : 'documents'}. Your menu will update within about 20 seconds.`)
+      // Don't repeat publication if the reload fails after a successful transaction.
       setReview(null)
       await load()
     } catch (cause) {
-      setError(`Could not confirm the save: ${errorMessage(cause)} Export pending edits before discarding them and reloading to check Sanity.`)
+      setError(`Could not confirm publication: ${errorMessage(cause)} Export pending edits before discarding them and reloading to check Sanity.`)
       setReview(null)
     } finally { setBusy(false) }
   }
@@ -149,7 +131,7 @@ export function MenuManager() {
       <div className={styles.header}>
         <h1>Menu manager</h1>
         <p>Edit categories and products together. Lower menu order numbers appear first; products are ordered within their category. Editing a price will no longer change its position.</p>
-        <p>Changes stay here until you review and save drafts. Publish those drafts in the document editor to update the website (allow about 20 seconds).</p>
+        <p>Edit, review, then publish the whole batch with one click. Your website updates within about 20 seconds.</p>
       </div>
 
       <div className={styles.toolbar}>
@@ -172,23 +154,19 @@ export function MenuManager() {
       {review && review.length > 0 && (
         <section className={styles.review} aria-label="Review changes">
           <h2>Review {review.length} {review.length === 1 ? 'document' : 'documents'}</h2>
-          <p>Existing images and fields outside the CSV are kept. Missing CSV rows are kept. Nothing is published or deleted.</p>
+          <p>Publishing applies this whole batch immediately, including existing drafts for these documents. Images and fields outside the CSV are kept; missing CSV rows are kept.</p>
           <ul>{review.map((change) => <li key={change.id}>
             <strong>{change.row.name_en}</strong> ({change.row.type}{!change.source ? ', new' : ''})
+            {change.fields.length === 0 && <p>Publish the category draft with its products.</p>}
             <dl>{change.fields.map((key) => <div key={key}>
               <dt>{key}</dt>
               <dd><del>{change.source ? menuRows([change.source])[0][key as keyof MenuRow] || '(blank)' : '(new)'}</del> → <ins>{change.row[key as keyof MenuRow] || '(blank)'}</ins></dd>
             </div>)}</dl>
           </li>)}</ul>
-          <button disabled={busy} onClick={() => void saveDrafts()}>Save {review.length} {review.length === 1 ? 'draft' : 'drafts'}</button>
+          <button disabled={busy} onClick={() => void publishChanges()}>Publish {review.length} {review.length === 1 ? 'document' : 'documents'}</button>
           <button disabled={busy} onClick={() => setReview(null)}>Back to editing</button>
         </section>
       )}
-
-      {saved.length > 0 && <section className={styles.review}>
-        <h2>Drafts ready to publish</h2>
-        <ul>{saved.map((item) => <li key={item.id}><IntentLink intent="edit" params={{id: item.id}}>{item.name} — open document</IntentLink></li>)}</ul>
-      </section>}
 
       <fieldset disabled={busy || !loaded} className={styles.editor}>
         <legend>Menu data</legend>
@@ -205,7 +183,7 @@ export function MenuManager() {
         </div>
         <div className={styles.tableWrap}>
           <table>
-            <caption>Keep IDs unchanged when editing exported CSV. Add new rows with unique IDs to create drafts. Blank optional cells clear those fields. Use a decimal point for prices.</caption>
+            <caption>Keep IDs unchanged when editing exported CSV. Add new rows with unique IDs to create products or categories. Blank optional cells clear those fields. Use a decimal point for prices.</caption>
             <thead><tr><th scope="col">Document</th><th scope="col">Menu order</th><th scope="col">English name</th><th scope="col">Croatian name</th>
               {section === 'product' ? <><th scope="col">Price (€)</th><th scope="col">Category</th><th scope="col">English description</th><th scope="col">Croatian description</th></> : <th scope="col">Slug</th>}
             </tr></thead>

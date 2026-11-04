@@ -164,7 +164,15 @@ export function planChanges(rows: MenuRow[], documents: MenuDocument[]): MenuCha
     }
     changes.push({id: row.id, row, source, set, unset, fields: changed})
   }
-  if (changes.length > 500) throw new Error('Save at most 500 changed documents at a time.')
+  // Publish a draft-only category with products that need it, without a separate step.
+  for (const change of [...changes]) {
+    if (change.row.type !== 'product') continue
+    const id = change.row.categoryId
+    if (documents.some((doc) => doc._id === id) || changes.some((item) => item.id === id)) continue
+    const source = current.get(id)
+    if (source) changes.push({id, row: documentToRow(source), source, set: {}, unset: [], fields: []})
+  }
+  if (changes.length > 500) throw new Error('Publish at most 500 changed documents at a time.')
   return changes
 }
 
@@ -178,11 +186,62 @@ export function assertUnchanged(before: MenuDocument[], after: MenuDocument[], c
   }
 }
 
-export function draftSeed(change: MenuChange) {
+export function publishedDocument(change: MenuChange) {
   // Preserve images, crop/hotspot, other locales and any fields outside the CSV.
-  const seed: Record<string, unknown> = {...change.source}
+  const seed: Record<string, unknown> = structuredClone(change.source ?? {})
   delete seed._rev
   delete seed._createdAt
   delete seed._updatedAt
-  return {...seed, _id: `drafts.${change.id}`, _type: change.row.type}
+  for (const [path, value] of Object.entries(change.set)) {
+    const keys = path.split('.')
+    let target = seed
+    for (const key of keys.slice(0, -1)) {
+      target[key] ??= {}
+      target = target[key] as Record<string, unknown>
+    }
+    target[keys[keys.length - 1]] = structuredClone(value)
+  }
+  for (const path of change.unset) {
+    const keys = path.split('.')
+    let target: Record<string, unknown> | undefined = seed
+    for (const key of keys.slice(0, -1)) target = target?.[key] as Record<string, unknown> | undefined
+    if (target) delete target[keys[keys.length - 1]]
+  }
+  // Turn Studio's temporary draft references into published, strong references.
+  const strengthen = (value: unknown) => {
+    if (!value || typeof value !== 'object') return
+    const object = value as Record<string, unknown>
+    if (object._type === 'reference' && object._strengthenOnPublish) {
+      delete object._weak
+      delete object._strengthenOnPublish
+    }
+    for (const child of Object.values(object)) strengthen(child)
+  }
+  strengthen(seed)
+  return {...seed, _id: change.id, _type: change.row.type}
+}
+
+type PublishedDocument = ReturnType<typeof publishedDocument>
+type PublishMutation =
+  | {patch: {id: string; ifRevisionID: string; set: {_type: string}}}
+  | {create: PublishedDocument}
+  | {createOrReplace: PublishedDocument}
+  | {delete: {id: string}}
+
+export function publishMutations(changes: MenuChange[], fresh: MenuDocument[]): PublishMutation[] {
+  const mutations: PublishMutation[] = []
+  // Guards run in the same atomic transaction as publication and draft cleanup.
+  for (const change of changes) {
+    for (const id of [change.id, `drafts.${change.id}`]) {
+      const existing = fresh.find((doc) => doc._id === id)
+      if (existing) mutations.push({patch: {id, ifRevisionID: existing._rev, set: {_type: existing._type}}})
+    }
+  }
+  for (const change of changes) {
+    const document = publishedDocument(change)
+    // create() rejects a concurrent insert instead of replacing unseen content.
+    mutations.push(fresh.some((doc) => doc._id === change.id) ? {createOrReplace: document} : {create: document})
+    if (fresh.some((doc) => doc._id === `drafts.${change.id}`)) mutations.push({delete: {id: `drafts.${change.id}`}})
+  }
+  return mutations
 }

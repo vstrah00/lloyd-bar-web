@@ -1,7 +1,7 @@
 import {test} from 'node:test'
 import assert from 'node:assert/strict'
 import {
-  assertUnchanged, documentToRow, draftSeed, effectiveDocuments,
+  assertUnchanged, documentToRow, publishedDocument, publishMutations, effectiveDocuments,
   exportCsv, menuRows, parseCsv, planChanges,
 } from '../sanity/tools/menuData.ts'
 
@@ -47,12 +47,13 @@ test('draft takes precedence regardless of fetch order; unchanged export is a no
   }
 })
 
-test('price-only edit patches only price and draft seeding preserves all other content', () => {
+test('publication applies the new price and preserves all other content', () => {
   const [change] = planChanges([priceEdit()], documents)
   assert.deepEqual(change.set, {price: 3.5})
   assert.deepEqual(change.unset, [])
-  const seed = draftSeed(change)
-  assert.equal(seed._id, 'drafts.espresso')
+  const seed = publishedDocument(change)
+  assert.equal(seed._id, 'espresso')
+  assert.equal(seed.price, 3.5)
   assert.equal(seed._rev, undefined)
   assert.equal(seed._createdAt, undefined)
   assert.equal(seed._updatedAt, undefined)
@@ -136,4 +137,52 @@ test('the table groups products in category menu order rather than category ID o
   const drink = {...product, _id: 'other', category: {_ref: 'aaa'}, sortOrder: 0}
   const rows = menuRows([other, drink, product, category])
   assert.deepEqual(rows.map((row) => row.id), ['coffee', 'aaa', 'espresso', 'other'])
+})
+
+test('publishing guards published and draft revisions and clears only the matching draft', () => {
+  const draft = {...product, _id: 'drafts.espresso', _rev: 'd1', price: 4, image: {...product.image, crop: {top: 0.1}}}
+  const docs = [...documents, draft]
+  const changes = planChanges([{...documentToRow(draft), price: '5'}], docs)
+  const mutations = publishMutations(changes, docs)
+  assert.deepEqual(mutations.slice(0, 2), [
+    {patch: {id: 'espresso', ifRevisionID: 'p1', set: {_type: 'product'}}},
+    {patch: {id: 'drafts.espresso', ifRevisionID: 'd1', set: {_type: 'product'}}},
+  ])
+  assert.equal(mutations[2].createOrReplace.price, 5)
+  assert.equal(mutations[2].createOrReplace._id, 'espresso')
+  assert.deepEqual(mutations[2].createOrReplace.image, draft.image)
+  assert.deepEqual(mutations[3], {delete: {id: 'drafts.espresso'}})
+  assert.equal(draft.price, 4)
+})
+
+test('new category/product publication is one batch with strong references and collision-safe creates', () => {
+  const cat = {...documentToRow(category), id: 'tea', slug: 'tea'}
+  const drink = {...priceEdit(), id: 'black-tea', categoryId: 'tea'}
+  const mutations = publishMutations(planChanges([drink, cat], documents), documents)
+  assert.equal(mutations.length, 2)
+  const published = mutations.map((mutation) => mutation.create)
+  const result = published.find((doc) => doc._id === 'black-tea')
+  assert.deepEqual(result.category, {_type: 'reference', _ref: 'tea'})
+  assert.equal(published.find((doc) => doc._id === 'tea').slug.current, 'tea')
+  assert.ok(published.every((doc) => !doc._id.startsWith('drafts.')))
+})
+
+test('a referenced draft-only category is automatically included in the reviewed publication', () => {
+  const draftCategory = {...category, _id: 'drafts.tea', _rev: 'c2', slug: {current: 'tea'}}
+  const docs = [...documents, draftCategory]
+  const changes = planChanges([{...priceEdit(), categoryId: 'tea'}], docs)
+  assert.deepEqual(changes.map((change) => change.id), ['espresso', 'tea'])
+  const mutations = publishMutations(changes, docs)
+  assert.ok(mutations.some((mutation) => mutation.create?._id === 'tea'))
+  assert.ok(mutations.some((mutation) => mutation.delete?.id === 'drafts.tea'))
+})
+
+test('publishing optional field removals preserves unrelated locale values and intentional weak references', () => {
+  const doc = {...product, description: {...product.description, de: 'Kaffee'}, related: {_type: 'reference', _ref: 'optional', _weak: true}}
+  const [change] = planChanges([{...documentToRow(doc), description_hr: ''}], [category, doc])
+  const result = publishedDocument(change)
+  assert.equal(result.description.hr, undefined)
+  assert.equal(result.description.de, 'Kaffee')
+  assert.deepEqual(result.related, doc.related)
+  assert.equal(doc.description.hr, product.description.hr)
 })
