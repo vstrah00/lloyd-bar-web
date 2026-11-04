@@ -72,6 +72,8 @@
     "fallbackAlt": "Beach Bar Lloyd gallery photo"
   },
   "QrMenu": {
+    "unnamedProduct": "Unnamed product",
+    "unnamedCategory": "Unnamed category",
     "eyebrow": "Menu",
     "heading": "Choose a category",
     "description": "Tap a category to browse drinks and prices.",

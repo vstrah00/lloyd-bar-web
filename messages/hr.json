@@ -72,6 +72,8 @@
     "fallbackAlt": "Fotografija Beach Bar Lloyd galerije"
   },
   "QrMenu": {
+    "unnamedProduct": "Proizvod bez naziva",
+    "unnamedCategory": "Kategorija bez naziva",
     "eyebrow": "Cjenik",
     "heading": "Odaberi kategoriju",
     "description": "Dodirni kategoriju za pregled pića i cijena.",

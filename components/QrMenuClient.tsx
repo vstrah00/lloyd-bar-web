@@ -6,41 +6,17 @@ import imageUrlBuilder from "@sanity/image-url";
 import { ChevronDown, ChevronUp, Info, Martini } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { client } from "@/sanity/lib/client";
+import {menuText, type MenuCategory, type MenuLocale, type MenuProduct} from "@/lib/menu";
 
 const builder = imageUrlBuilder(client);
 
-function urlFor(source: { asset: { _ref: string } }) {
+function urlFor(source: NonNullable<MenuProduct['image']>) {
   return builder.image(source);
 }
 
-type LocalizedString = {
-  en: string;
-  hr: string;
-};
-
-type Product = {
-  _id: string;
-  name: LocalizedString;
-  price: number;
-  description?: LocalizedString;
-  image?: {
-    asset: {
-      _ref: string;
-    };
-  };
-};
-
-type Category = {
-  _id: string;
-  name: LocalizedString;
-  products: Product[];
-};
-
-type Locale = "en" | "hr";
-
 type QrMenuClientProps = {
-  products?: Category[];
-  locale: Locale;
+  products?: MenuCategory[];
+  locale: MenuLocale;
 };
 
 const QrMenuClient: React.FC<QrMenuClientProps> = ({ products = [], locale }) => {
@@ -54,7 +30,7 @@ const QrMenuClient: React.FC<QrMenuClientProps> = ({ products = [], locale }) =>
   );
 
   useEffect(() => {
-    if (!openCategory && categories[0]) {
+    if (!categories.some((category) => category._id === openCategory) && categories[0]) {
       setOpenCategory(categories[0]._id);
     }
   }, [categories, openCategory]);
@@ -98,7 +74,7 @@ const QrMenuClient: React.FC<QrMenuClientProps> = ({ products = [], locale }) =>
                         : "border-zinc-200 bg-white text-zinc-800 hover:border-primary/50"
                     }`}
                   >
-                    <span className="block text-sm font-bold leading-tight">{category.name[locale]}</span>
+                    <span className="block text-sm font-bold leading-tight">{menuText(category.name, locale, t("unnamedCategory"))}</span>
                     <span className={`mt-0.5 block text-xs ${isOpen ? "text-white/80" : "text-zinc-500"}`}>
                       {t("items", { count: category.products.length })}
                     </span>
@@ -110,7 +86,7 @@ const QrMenuClient: React.FC<QrMenuClientProps> = ({ products = [], locale }) =>
             {selectedCategory && (
               <div className="overflow-hidden rounded-md bg-white shadow-sm">
                 <div className="flex items-center justify-between border-b border-zinc-100 p-4">
-                  <h2 className="text-xl font-extrabold">{selectedCategory.name[locale]}</h2>
+                  <h2 className="text-xl font-extrabold">{menuText(selectedCategory.name, locale, t("unnamedCategory"))}</h2>
                   <span className="text-sm font-semibold text-zinc-500">
                     {t("items", { count: selectedCategory.products.length })}
                   </span>
@@ -119,7 +95,8 @@ const QrMenuClient: React.FC<QrMenuClientProps> = ({ products = [], locale }) =>
                 <div className="divide-y divide-zinc-100">
                   {selectedCategory.products.map((product) => {
                     const isActive = activeProduct === product._id;
-                    const description = product.description?.[locale];
+                    const description = menuText(product.description, locale);
+                    const name = menuText(product.name, locale, t("unnamedProduct"));
 
                     return (
                       <article key={product._id} className="p-4">
@@ -128,7 +105,7 @@ const QrMenuClient: React.FC<QrMenuClientProps> = ({ products = [], locale }) =>
                             <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md bg-zinc-100">
                               <Image
                                 src={urlFor(product.image).width(160).height(160).fit("crop").url()}
-                                alt={product.name[locale]}
+                                alt={name}
                                 fill
                                 sizes="64px"
                                 className="object-cover"
@@ -138,7 +115,7 @@ const QrMenuClient: React.FC<QrMenuClientProps> = ({ products = [], locale }) =>
 
                           <div className="min-w-0 flex-1">
                             <div className="flex items-start justify-between gap-3">
-                              <h3 className="text-base font-bold leading-snug">{product.name[locale]}</h3>
+                              <h3 className="text-base font-bold leading-snug">{name}</h3>
                               <span className="shrink-0 rounded-full bg-zinc-100 px-3 py-1 text-sm font-extrabold text-zinc-950">
                                 {product.price}€
                               </span>
